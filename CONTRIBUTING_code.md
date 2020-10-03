@@ -17,7 +17,7 @@ Contents:
 Unfamiliar with the technology we use? No problem! We were once new to this
 too! Here are few guides we've compiled to help you get started:
 - [Git guide](www.google.com)
-- django guide(www.google.com)
+- [django guide](www.google.com)
 - [GraphQL guide](www.google.com)
 - [MongoDB guide](www.google.com)
 
