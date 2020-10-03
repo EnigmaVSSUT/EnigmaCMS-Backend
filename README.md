@@ -32,13 +32,17 @@ Before you attempt to make a contribution please read the [Community Participati
 
 ## Build Instructions
 
-
 1. Clone or Download the repository:
 
   ```shell
   git clone https://github.com/EnigmaVSSUT/EnigmaCMS-Backend
   ```
 
-2. *to be done*
-
-3. *to be done*
+## Setting up the environment
+_Always make sure you have python 3 and are using virtualenv to install and manage your packages_
+__First get into `Enigma_CMS_backend/project` an then follow the steps given below__
+1. `pip3 install virtualenv`		-> Install the virtualenv library
+2. `virtualenv .venv`			-> Create a virtual environment
+3. `source .venv/bin/activate`		-> Get inside the virtual environment
+4. `pip install --upgrade pip`		-> get upgraded to pip3
+5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
