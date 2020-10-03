@@ -37,6 +37,7 @@ Before you attempt to make a contribution please read the [Community Participati
   ```shell
   git clone https://github.com/EnigmaVSSUT/EnigmaCMS-Backend
   ```
+2. Inside the `Enigma_CMS_backend/project` start the server by entering into the terminal `$ python manage.py runserver`
 
 ## Setting up the environment
 _Always make sure you have python 3 and are using virtualenv to install and manage your packages_
@@ -46,3 +47,5 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 3. `source .venv/bin/activate`		-> Get inside the virtual environment
 4. `pip install --upgrade pip`		-> get upgraded to pip3
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
+
+
