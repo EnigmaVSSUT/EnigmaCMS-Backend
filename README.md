@@ -1,8 +1,11 @@
 # EnigmaCMS-Backend
-Server for our Club
 
+### Server for our Club
+ 
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl-125x28.png?v=103)](https://opensource.org/licenses/GPL-3.0/)
 
-## Getting Involved
+## Getting Involved [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](#)
 
 
 We encourage you to participate in this open source project. We love Pull Requests, Bug Reports, ideas, (security) code reviews or any other kind of positive contribution. 
