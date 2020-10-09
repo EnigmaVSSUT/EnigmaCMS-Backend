@@ -51,6 +51,4 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 4. `pip install --upgrade pip`		-> get upgraded to pip3
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
 
-[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl-125x28.png?v=103)](https://opensource.org/licenses/GPL-3.0/)
-
 
