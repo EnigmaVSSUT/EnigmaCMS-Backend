@@ -3,6 +3,7 @@
 ### Server for our Club
  
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl-125x28.png?v=103)](https://opensource.org/licenses/GPL-3.0/)
 
 ## Getting Involved [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](#)
 
@@ -49,5 +50,7 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 3. `source .venv/bin/activate`		-> Get inside the virtual environment
 4. `pip install --upgrade pip`		-> get upgraded to pip3
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
+
+[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl-125x28.png?v=103)](https://opensource.org/licenses/GPL-3.0/)
 
 
