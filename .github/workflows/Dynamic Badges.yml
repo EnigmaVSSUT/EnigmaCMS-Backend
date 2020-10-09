@@ -1,0 +1,15 @@
+- name: Dynamic Badges
+  # You may pin to the exact commit or the version.
+  # uses: Schneegans/dynamic-badges-action@b90feefcb07693386596d07ff4b7b7f0c6e99bff
+  uses: Schneegans/dynamic-badges-action@v1.0.0
+  with:
+    # Your secret with the gist scope
+    auth: fce4b12546bee32235adfc2fc1819ce37eb89283
+    # The ID of the gist to use
+    gistID: cfa589093df5b02559b7e3b7673aabb9
+    # The *.json filename of the badge data
+    filename: test.json
+    # The left text of the badge
+    label: test
+    # The right text of the badge
+    message: test
