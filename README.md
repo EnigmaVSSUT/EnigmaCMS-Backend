@@ -1,12 +1,11 @@
 # EnigmaCMS-Backend
 
-### Server for our Club
- 
+## Server for our Club
+
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl-125x28.png?v=103)](https://opensource.org/licenses/GPL-3.0/)
 
 ## Getting Involved [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](#)
-
 
 We encourage you to participate in this open source project. We love Pull Requests, Bug Reports, ideas, (security) code reviews or any other kind of positive contribution. 
 
@@ -37,12 +36,13 @@ Before you attempt to make a contribution please read the [Community Participati
 
 1. Clone or Download the repository:
 
-  ```shell
+  ```bash
   git clone https://github.com/EnigmaVSSUT/EnigmaCMS-Backend
   ```
+
 2. Inside the `Enigma_CMS_backend/project` start the server by entering into the terminal `$ python manage.py runserver`
 
-## Setting up the environment
+## Setting up the environment (Linux and MacOS)
 _Always make sure you have python 3 and are using virtualenv to install and manage your packages_
 __First get into `Enigma_CMS_backend/project` an then follow the steps given below__
 1. `pip3 install virtualenv`		-> Install the virtualenv library
@@ -52,3 +52,11 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
 
 
+## Setting up the environment (Windows)
+_Always make sure you have python 3 and are using virtualenv to install and manage your packages_
+__First get into `Enigma_CMS_backend/project` an then follow the steps given below__
+1. `py -m pip install --user virtualenv`		-> Install the virtualenv library
+2. `py -m venv env`			-> Create a virtual environment
+3. `.\env\Scripts\activate`		-> Get inside the virtual environment
+4. `pip install --upgrade pip`		-> get upgraded to pip3
+5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
