@@ -42,63 +42,21 @@ Before you attempt to make a contribution please read the [Community Participati
 
 2. Inside the `Enigma_CMS_backend/project` start the server by entering into the terminal `$ python manage.py runserver`
 
-## **Commands to setup the environment**
+## Setting up the environment (Linux and MacOS)
+_Always make sure you have python 3 and are using virtualenv to install and manage your packages_
+__First get into `Enigma_CMS_backend/project` an then follow the steps given below__
+1. `pip3 install virtualenv`		-> Install the virtualenv library
+2. `virtualenv .venv`			-> Create a virtual environment
+3. `source .venv/bin/activate`		-> Get inside the virtual environment
+4. `pip install --upgrade pip`		-> get upgraded to pip3
+5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
 
-## Setup virtual enivronment
 
-### **Installing pip**
-
----
-
-On Windows:
-
-`py -m pip install --upgrade pip`
-
-On Linux and macOS
-
-`python3 -m pip install --user --upgrade pip`
-
-### **Installing virtualenv**
-
----
-
-On Linux and macOS:
-
-`python3 -m pip install --user virtualenv`
-
-On Windows:
-
-`py -m pip install --user virtualenv`
-
-### **Creating a virtual environment**
-
----
-
-On Linux and macOS:
-
-`python3 -m venv env`
-
-On Windows:
-
-`py -m venv env`
-
-### **Activating the virutal environment**
-
----
-
-On Linux and macOS:
-
-`source env/bin/activate`
-On Windows:
-
-`.\env\Scripts\activate`
-
-### **Leaving the virtual environment**
-
----
-
-`deactivate`
-
-## Install Packages
-
-`pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
+## Setting up the environment (Windows)
+_Always make sure you have python 3 and are using virtualenv to install and manage your packages_
+__First get into `Enigma_CMS_backend/project` an then follow the steps given below__
+1. `py -m pip install --user virtualenv`		-> Install the virtualenv library
+2. `py -m venv env`			-> Create a virtual environment
+3. `.\env\Scripts\activate`		-> Get inside the virtual environment
+4. `pip install --upgrade pip`		-> get upgraded to pip3
+5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
