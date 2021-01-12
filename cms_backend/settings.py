@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_graphene',
     'rest_framework',
     'users'
+
 ]
 
 MIDDLEWARE = [
