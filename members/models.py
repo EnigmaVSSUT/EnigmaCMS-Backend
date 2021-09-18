@@ -21,9 +21,6 @@ class Member(models.Model):
     others = models.CharField(max_length=100, null=True, blank=True)
     profile_pic = models.ImageField(
         upload_to='member_profile_pic', default='default.jpg')
-    # slug = AutoSlugField(populate_from=lambda instance: instance.title,
-    #                      unique_wit9h=['user__last_name', 'user__first_name'],
-    #                      slugify=lambda value: value.replace(' ','-'))
     slug = models.SlugField(unique=True, blank=True)
     first_password = models.CharField(max_length=10, null=True, blank=True)
 
@@ -37,5 +34,6 @@ class Member(models.Model):
             self.slug += '-' + str(self.user.id)
         super(Member, self).save(*args, **kwargs)
 
+# class Event(models.Model):
 
 
