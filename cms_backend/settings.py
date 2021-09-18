@@ -94,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'enigma_backend',
-        'HOST': '165.232.178.159',
+        'HOST': 'localhost',
         'USER': 'enigma',
         'PASSWORD': 'Enigma@vssut'
     }
