@@ -1,0 +1,484 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+.change-list {
+  #content-main {
+    @extend .container-fluid;
+  }
+
+  .object-tools {
+    .addlink {
+      &::before {
+        content: '\f067';
+      }
+    }
+  }
+
+  .select2-container {
+    z-index: 1070;
+  }
+
+  #changelist {
+    border: 1px solid $changelist-border-color;
+    clear: both;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    .changelist-form-container { // django 3.1.1
+      display: flex;
+      flex: 0 0 100%;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    // no object tools
+    &:first-child {
+      margin-top: 1rem;
+    }
+
+    .toplinks {
+      margin-bottom: 0;
+      padding-left: 0;
+
+      li {
+        background: rgba(0, 0, 0, .1);
+        display: inline-block;
+        padding: .2rem 1rem;
+
+        &.date-back {
+          background: $base;
+          a {
+            color: $white;
+          }
+        }
+      }
+
+      + br {
+        display: none;
+      }
+    }
+
+    .xfull {
+      overflow: auto;
+      width: 100%;
+
+      .toplinks {
+        white-space: nowrap;
+      }
+    }
+
+    .date-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f073';
+      }
+    }
+
+    .clock-icon {
+      &::before {
+        @extend %font-awesome;
+        content: '\f017';
+      }
+    }
+
+    #result_list {
+      input[type=text],
+      input[type=number],
+      input[type=email],
+      input[type=date] {
+        @extend .form-control;
+        display: inline;
+        height: 28px;
+        margin: 2px 0;
+        width: auto;
+      }
+    }
+  }
+
+  #toolbar {
+    @extend .mb-0;
+    @extend .p-3;
+    @include make-col(12);
+    background: $toolbar-bg;
+    order: 1;
+  }
+
+  #changelist-search {
+    label,
+    input {
+      display: inline-block !important;
+    }
+
+    label {
+      @extend .pe-2;
+      position: relative;
+      top: -2px;
+      text-align: right;
+    }
+
+    input[type=text] {
+      @extend .form-control;
+      @extend .form-control-sm;
+      max-width: 160px;
+    }
+
+    input[type=submit] {
+      @extend .btn;
+      @extend .btn-sm;
+      @extend .ms-2;
+      background: $toolbar-btn-bg;
+      margin-top: -3px;
+      max-width: 100px;
+
+      &:hover {
+        background: $toolbar-btn-hover-bg;
+      }
+    }
+  }
+
+  .action-counter {
+    display: block;
+
+    @include media-breakpoint-up(sm) {
+      display: inline;
+    }
+  }
+
+  .changelist-filter-toggler {
+    @extend .btn;
+    @extend .btn-info;
+    align-items: center;
+    cursor: pointer;
+    display: inline;
+    float: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    min-height: 39px;
+
+    &.active {
+      background: $accent;
+      border-color: $accent !important;
+    }
+
+    &.with-actions {
+      display: flex;
+      flex-direction: row;
+      float: none;
+      margin-bottom: 0;
+      position: absolute;
+      right: 16px;
+      top: 32px;
+    }
+
+    > span {
+      display: none;
+
+      @include media-breakpoint-up(sm) {
+        display: inline-block;
+        margin-left: .5rem;
+      }
+    }
+
+  }
+
+  #changelist-filter {
+    @include make-col(12);
+    background: $filters-bg;
+    max-width: 100%;
+    order: 3;
+
+    @include media-breakpoint-up(lg) {
+      @include make-col(0);
+      max-height: 200px;
+      max-width: 99%;
+      display: none;
+    }
+
+    h2 {
+      background: $filters-title-bg;
+      color: $filters-title-color;
+      font-size: $h2-size;
+      margin-bottom: 0;
+      padding: .5rem 1rem;
+    }
+
+    #changelist-filter-clear {
+      background: $filters-clear-bg;
+      font-size: .9rem;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: .5rem 1rem;
+
+      a {
+        color: $filters-title-color;
+      }
+    }
+
+
+    h3 {
+      font-size: $h3-size;
+      margin-top: 1rem;
+      padding: 0 1rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .selected {
+        border-left: 5px solid $filter-selected-border-color;
+        margin-left: -15px;
+        padding-left: 10px;
+      }
+
+      .select2-container {
+        outline: 0 !important;
+        min-width: auto !important;
+        width: 100% !important;
+      }
+
+      .select2-selection {
+        max-width: 100% !important;
+        width: 226px !important;
+      }
+      .select2-container--focus,
+      .select2-selection--single:focus {
+        border-radius: 2px;
+        box-shadow: 0 0 0 0.25rem rgba(127, 27, 39, .25) !important;
+      }
+    }
+  }
+
+  &.changelist-filter-always-open {
+    #changelist-filter,
+    #changelist-form {
+      transition: none !important;
+    }
+  }
+
+  // show filters
+  &.changelist-filter-active {
+    #changelist-filter {
+      @include media-breakpoint-up(lg) {
+        @include make-col(2);
+        max-height: 100%;
+        display: block;
+      }
+    }
+
+    #changelist-form {
+      @include media-breakpoint-up(lg) {
+        @include make-col(10);
+      }
+    }
+  }
+
+  #changelist-filter-modal {
+    @extend .modal-body;
+    @extend #changelist-filter;
+    display: block;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    order: 0 !important;
+    padding: .5rem 0 !important;
+    width: auto !important;
+
+    select {
+      margin-left: 0 !important;
+      width: auto !important;
+    }
+
+    > div,
+    > p {
+      display: block;
+    }
+
+    ul {
+      li {
+        .select2-container {
+          width: 100% !important;
+        }
+        .select2-selection {
+          border: 1px solid #ced4da;
+          outline: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .select2-container--focus,
+        .select2-selection--single:focus {
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  #changelist-form {
+    @include make-col(12);
+    background: $changelist-bg;
+    order: 2;
+    padding: 1rem !important;
+    position: relative; // filter icon
+
+    @include media-breakpoint-up(lg) {
+      @include make-col(12);
+    }
+
+    .actions {
+      @extend .mb-4;
+
+      label {
+        @extend .pe-2;
+      }
+
+      button {
+        @extend .btn;
+        @extend .btn-sm;
+        @extend .btn-light;
+        @extend .ms-2;
+        @extend .me-2;
+      }
+
+      .all,
+      .question,
+      .clear {
+        display: none;
+      }
+    }
+
+    select {
+      @extend .form-select;
+      @extend .form-select-sm;
+      -moz-appearance: none;
+      text-indent: .01px;
+      text-overflow: clip;
+    }
+  }
+
+  .results {
+    @extend .mt-2;
+    @extend .table-responsive;
+    background: $changelist-bg;
+    clear: both;
+
+    table {
+      @extend .table;
+      @extend .table-bordered;
+
+      thead > tr {
+        background: $rl-head-bg;
+        color: $rl-head-color;
+      }
+
+      tbody tr:nth-child(2n + 1) {
+        background: $rl-tr-odd-bg;
+        color: $rl-tr-odd-color;
+      }
+
+      tbody tr.selected, tbody tr.selected td, tbody tr.selected th {
+        background: $rl-tr-selected-bg !important;
+        color: $rl-tr-selected-color;
+      }
+
+      .action-checkbox-column {
+        width: 20px;
+
+        .text {
+          padding-right: 0;
+        }
+      }
+
+      th,
+      td {
+        padding: .3rem;
+      }
+    }
+
+    .sortoptions {
+      float: right;
+    }
+
+    th .text {
+      padding-right: 44px;
+    }
+
+    .sorted .sortoptions a {
+      background: url('../img/sorting-icons.svg') 0 0 no-repeat;
+      background-size: 14px auto;
+      display: inline-block;
+      height: 14px;
+      position: relative;
+      width: 14px;
+
+      &.sortremove::after {
+        color: $sort-icon-color;
+        content: '\\';
+        font-size: 18px;
+        font-weight: 200;
+        left: 3px;
+        position: absolute;
+        top: -6px;
+      }
+
+      &.descending {
+        background-position: 0 -56px;
+        top: 1px;
+      }
+
+      &.ascending {
+        background-position: 0 -42px;
+      }
+    }
+  }
+
+  .baton-cl-include-top {
+    padding-right: 50px;
+
+    @include media-breakpoint-up(sm) {
+      padding-right: 100px;
+    }
+  }
+
+  .baton-cl-include-above,
+  .baton-cl-include-below {
+    width: 100%;
+  }
+
+  .baton-cl-include-below {
+    order: 2;
+  }
+
+  .admindatefilter {
+    border-bottom: 0 !important;
+    margin-right: 15px;
+    padding-bottom: 0;
+    position: relative;
+
+    form > p {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .datetimeshortcuts {
+      right: 2rem;
+    }
+
+    input[type='text'] {
+      @extend .form-control;
+      @extend .form-control-sm;
+      flex-grow: 1;
+    }
+
+    input[type='submit'],
+    input[type='reset'] {
+      @extend .btn-sm;
+    }
+
+    input[type='reset'] {
+      @extend .btn-secondary;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+// scss-lint:disable ImportantRule IdSelector SelectorDepth NestingDepth PlaceholderInExtend
+body.login {
+  align-items: center;
+  background: $login-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1px 1rem 0;
+
+  #header #branding {
+    margin: auto !important;
+  }
+}
+
+.login {
+  #content {
+    padding-top: 1px !important;
+  }
+
+  #content-main + br.clear {
+    display: none;
+  }
+
+  #container {
+    border: 0 !important;
+    border-radius: 0;
+    max-width: 100%;
+    min-width: auto;
+    width: 24em;
+
+    .navbar-toggler {
+      display: none !important;
+    }
+
+    .submit-row {
+      padding: 10px 0;
+      text-align: center;
+
+      input {
+        @extend .btn;
+        @extend .btn-secondary;
+        display: inline-block;
+      }
+    }
+
+    form {
+      padding: 1rem;
+
+      .input-group-text {
+        justify-content: center;
+        width: 42px;
+      }
+    }
+
+    input[type='text'],
+    input[type='password'] {
+      @extend .form-control;
+      background: #fff !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+
+    .pwd-visibility-toggle {
+      color: $password-visibility-toggler-icon-fg;
+      cursor: pointer;
+      position: absolute;
+      right: 8px;
+      top: 11px;
+      z-index: 10;
+    }
+
+    .form-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      position: relative;
+    }
+
+    .errornote {
+      @extend .alert;
+      @extend .alert-warning;
+      margin: 1rem 1rem 0;
+      padding: .5rem;
+    }
+  }
+}

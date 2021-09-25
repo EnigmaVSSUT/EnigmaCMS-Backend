@@ -1,0 +1,193 @@
+// scss-lint:disable PlaceholderInExtend IdSelector SelectorDepth NestingDepth ImportantRule
+.dashboard {
+
+  #content {
+    background: $dashboard-bg;
+  }
+
+  #content-main {
+    @include make-row();
+    float: left;
+    margin-left: 0 !important;
+    padding: 16px 0;
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      margin-left: -15px;
+      width: 75%;
+    }
+
+    > p {
+      @extend .ps-3;
+      @extend .pe-3;
+    }
+
+    > .module {
+      @include make-col-ready();
+      @include make-col(12);
+
+      @include media-breakpoint-up(lg) {
+        @include make-col(6);
+      }
+
+      @media(min-width: 1600px) {
+        @include make-col(4);
+      }
+    }
+
+    table {
+      @extend .table;
+      background: $dashboard-module-bg;
+      border: 1px solid $dashboard-module-border-color;
+
+      tbody {
+        font-size: .9rem;
+      }
+
+      th {
+        width: 100%;
+      }
+
+      td {
+        white-space: nowrap;
+      }
+
+    }
+  }
+
+  #content-related {
+    float: right;
+    margin-bottom: 2rem;
+    margin-right: 0 !important;
+    padding: 0 15px;
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 25px;
+      width: 23%;
+    }
+
+    h2 {
+      font-size: $h2-size;
+    }
+
+    h3 {
+      font-size: $h3-size;
+    }
+
+    > div {
+      @extend .p-3;
+      @extend .mt-3;
+
+      background: $dashboard-module-bg;
+      border: 1px solid $dashboard-module-border-color;
+    }
+
+    .actionlist {
+      font-size: .9rem;
+    }
+  }
+
+  caption {
+    @extend .ps-2;
+    @extend .pe-2;
+    background: $dashboard-caption-bg;
+    border: 1px solid $dashboard-module-border-color;
+    caption-side: top;
+
+    a {
+      color: $dashboard-caption-color;
+    }
+  }
+
+  .actionlist {
+    border-left: 5px solid #e7e7e7;
+    list-style-type: none;
+    margin-left: .5rem;
+    margin-top: 1.5rem;
+    padding-left: 0;
+    position: relative;
+
+
+    &::after {
+      background-image: linear-gradient(#e7e7e7 50%, rgba(255, 255, 255, 0) 0%);
+      background-position: center;
+      background-repeat: repeat-y;
+      background-size: 5px 13px;
+      bottom: -25px;
+      content: '';
+      height: 25px;
+      left: -5px;
+      position: absolute;
+      width: 5px;
+    }
+
+    li {
+      padding: 1.5rem;
+      padding-top: 0;
+      position: relative;
+
+      &::before {
+        background: $dashboard-icon-color;
+        border-radius: 50%;
+        color: $white !important;
+        display: inline-block;
+        height: 30px;
+        left: -18px;
+        line-height: 30px;
+        position: absolute;
+        text-align: center;
+        width: 30px;
+      }
+
+      &.addlink::before {
+        background: $dashboard-add-bg;
+      }
+
+      &.changelink::before {
+        background: $dashboard-change-bg;
+      }
+
+      &.deletelink::before {
+        background: $dashboard-delete-bg;
+      }
+    }
+  }
+
+  .addlink,
+  .viewlink,
+  .deletelink,
+  .changelink {
+    &::before {
+      @extend %font-awesome;
+      @extend .me-1;
+      color: $dashboard-icon-color;
+      white-space: nowrap;
+    }
+  }
+
+  .addlink {
+    &::before {
+      content: '\f067';
+    }
+  }
+
+  .changelink {
+    &::before {
+      content: '\f304';
+    }
+  }
+
+  .deletelink {
+    &::before {
+      content: '\f1f8';
+    }
+  }
+
+  .viewlink {
+    &::before {
+      content: '\f26c';
+    }
+  }
+
+}

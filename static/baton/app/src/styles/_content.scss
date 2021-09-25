@@ -1,0 +1,134 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth
+
+@include media-breakpoint-up(lg) {
+  .menu-mobile {
+    #content {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+  }
+}
+
+#content {
+  background: $content-bg;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  position: relative;
+
+  @include media-breakpoint-down(md) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  > h1 {
+    @extend .mb-0;
+    @extend .p-3;
+    background: $dashboard-title-bg;
+    font-size: 1.6rem;
+    font-weight: 700;
+
+    + h2 {
+      @extend .mb-0;
+      @extend .px-3;
+      background: $dashboard-title-bg;
+      font-size: 1.2rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .object-tools {
+    @extend .ps-0;
+    @extend .m-2;
+    float: right;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+    }
+
+    a {
+      @extend .btn;
+      @extend .btn-secondary;
+
+      &::before {
+        @extend %font-awesome;
+      }
+    }
+  }
+}
+
+.messagelist {
+  list-style-type: none;
+  padding: 0;
+
+  .success {
+    @extend .alert;
+    @extend .alert-success;
+    @extend .ps-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: "\f00c";
+    }
+  }
+
+  .info {
+    @extend .alert;
+    @extend .alert-info;
+    @extend .ps-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: "\f05a";
+    }
+  }
+
+  .warning {
+    @extend .alert;
+    @extend .alert-warning;
+    @extend .ps-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: "\f12a";
+    }
+  }
+
+  .error {
+    @extend .alert;
+    @extend .alert-danger;
+    @extend .ps-3;
+
+    &::before {
+      @extend %font-awesome;
+      content: "\f071";
+    }
+  }
+}
+
+// modal
+.modal-header {
+  align-items: center !important;
+}
+
+.modal-dialog button.back {
+  align-items: center;
+  background: $modal-back-btn-bg;
+  border: none;
+  border-radius: 50%;
+  color: $modal-back-btn-fg;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  position: relative;
+  top: -4px;
+  width: 24px;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}

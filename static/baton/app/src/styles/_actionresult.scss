@@ -1,0 +1,19 @@
+// scss-lint:disable IdSelector PlaceholderInExtend SelectorDepth NestingDepth
+
+.actionresult {
+  #content {
+    h1 + p {
+      @extend .pt-3;
+    }
+
+    > p {
+      @extend .ps-3;
+      @extend .pe-3;
+
+      a {
+        @extend .btn;
+        @extend .btn-secondary;
+      }
+    }
+  }
+}

@@ -1,0 +1,165 @@
+// scss-lint:disable IdSelector PlaceholderInExtend NestingDepth QualifyingElement SelectorDepth ImportantRule
+.change-form {
+  #content {
+    form {
+      @extend %admin-form;
+    }
+  }
+
+  #content-main {
+    @extend .container-fluid;
+  }
+
+  .object-tools {
+    @extend .ps-0;
+    @extend .m-2;
+    float: right;
+    list-style-type: none;
+
+    .historylink {
+      &::before {
+        content: '\f017';
+      }
+    }
+
+    .viewsitelink {
+      &::before {
+        content: '\f26c';
+      }
+    }
+  }
+
+  .baton-image-preview {
+    height: 100px;
+
+    &:hover {
+      animation: bounce 0.1s;
+      animation-direction: alternate;
+      animation-iteration-count: 4;
+    }
+  }
+
+  .collapse-entry {
+    h3 {
+      cursor: pointer;
+
+      .entry-collapse-toggler {
+        margin-left: 1rem !important;
+        order: 1;
+
+        &::before {
+          color: $collapse-entry-icon-color;
+          content: '\f070';
+          cursor: pointer;
+          font-family: 'Font Awesome\ 5 Free';
+        }
+
+        & + span {
+          margin-left: auto;
+        }
+      }
+
+      &.entry-collapsed {
+        + fieldset {
+          display: none !important;
+        }
+
+        .entry-collapse-toggler {
+          &::before {
+            content: '\f06e';
+          }
+        }
+      }
+    }
+  }
+
+  .collapse-entry .last-related, // do not collapse the newly added row
+  .expand-first .inline-related[id$="-0"] {
+    h3 {
+      .entry-collapse-toggler {
+        &::before {
+          content: '\f06e';
+        }
+      }
+
+      + fieldset {
+        display: none !important;
+      }
+
+      &.entry-collapsed {
+        .entry-collapse-toggler {
+          &::before {
+            content: '\f070';
+          }
+        }
+
+        + fieldset {
+          display: block !important;
+        }
+      }
+    }
+  }
+}
+
+.spinner-overlay {
+  align-items: center;
+  background: $spinner-overlay-bg;
+  bottom: 0;
+  color: $spinner-overlay-fg;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  p {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}
+
+// tabs
+.nav-tabs {
+  .nav-link {
+    background: #fafafa;
+    border: 1px solid #dee2e6;
+    color: #999;
+    cursor: pointer;
+
+    &:hover {
+      color: $gray-700;
+      text-decoration: none;
+    }
+
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
+
+.submit-row + .nav-tabs {
+  margin-top: 1rem;
+}
+
+.tab-content {
+  // padding-top: 1rem;
+}
+
+.baton-form-include {
+  display: block;
+  min-width: 100%;
+}
+
+.baton-form-include-right {
+  display: inline !important;
+  min-width: auto !important;
+}
+
+.change-form #content-main>form .form-row>div.baton-form-include {
+  display: block;
+}
