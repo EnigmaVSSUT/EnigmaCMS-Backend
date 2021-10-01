@@ -31,13 +31,23 @@ def home (request):
     return render('home.html')
 
 class MemberList(generics.ListCreateAPIView):
+    authentication_classes = [IsAuthenticated]
     queryset = member_models.Member.objects.all()
     serializer_class = member_serializers.MemberSerializer
+
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = member_models.Member.objects.all()
     serializer_class = member_serializers.MemberSerializer
     lookup_field = 'slug'
+
+class EventList(generics.ListCreateAPIView):
+    queryset = member_models.Member.objects.all()
+    serializer_class = member_serializers.EventSerializer
+
+class EventDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = member_models.Member.objects.all()
+    serializer_class = member_serializers.EventSerializer
 
 
 
@@ -45,7 +55,8 @@ class AddMemberView(APIView):
     # parser_classes = (MultiPartParser, FormParser)
     def post(self, request, *args, **kwargs):
         # if request.user.is_superuser:
-        new_password = generate_random_string(7)
+        # new_password = generate_random_string(7)
+        new_password = 'EnigmaV'
         username = request.data.get('username')
         email = request.data.get('email')
         first_name = request.data.get('first_name')

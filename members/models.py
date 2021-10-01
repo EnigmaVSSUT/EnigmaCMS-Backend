@@ -89,6 +89,7 @@ class Event(models.Model):
 
 
 class EventRegistration(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
