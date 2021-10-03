@@ -31,7 +31,7 @@ def home (request):
     return render('home.html')
 
 class MemberList(generics.ListCreateAPIView):
-    authentication_classes = [IsAuthenticated]
+    # authentication_classes = [IsAuthenticated]
     queryset = member_models.Member.objects.all()
     serializer_class = member_serializers.MemberSerializer
 
@@ -42,11 +42,11 @@ class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
 
 class EventList(generics.ListCreateAPIView):
-    queryset = member_models.Member.objects.all()
+    queryset = member_models.Event.objects.all()
     serializer_class = member_serializers.EventSerializer
 
 class EventDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = member_models.Member.objects.all()
+    queryset = member_models.Event.objects.all()
     serializer_class = member_serializers.EventSerializer
 
 
@@ -62,7 +62,7 @@ class AddMemberView(APIView):
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
         password = new_password
-        new_user = User.objects.create(
+        new_user = User.objects.create_user(
             username = username,
             email = email,
             password = password,
