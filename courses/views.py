@@ -57,11 +57,11 @@ class EditionList(generics.ListCreateAPIView):
         queryset = core_models.Edition.objects.filter(is_active=True).order_by('-timestamp')
         try:
             site = self.request.META['HTTP_ORIGIN']
-            if site == 'https://authors.kanzulhaya.com' or site=='http://localhost:3000' or site=='http://localhost:8080':
+            if site == 'https://club.enigmavssut.com' or site=='http://localhost:3000' or site=='http://localhost:8080':
                 # update_subscription()
                 queryset = core_models.Edition.objects.all().order_by('-timestamp')
             
-            elif site == 'https://kanzulhaya.com' or site=='http://localhost:3000':
+            elif site == 'https://enigmavssut.com' or site=='http://localhost:3000':
                 queryset = core_models.Edition.objects.filter(is_active=True).order_by('-timestamp')
             return queryset
         except:
