@@ -64,7 +64,7 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 ## API endpoints
 
 Endpoints (Enigma)
-- [ ] Api.enigmavssut.com/courses/article-list  methods= POST, GET
+- [ ] [Api.enigmavssut.com/courses/article-list]  methods= POST, GET
 - [ ] Api.enigmavssut.com/courses/track-list   methods= POST,  GET
 - [ ] Api.enigmavssut.com/courses/article-list   methods=GET
 - [ ] Api.enigmavssut.com/courses/topic-detail/<slug>/   methods=GET, DELETE
