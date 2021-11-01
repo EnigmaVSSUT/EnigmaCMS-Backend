@@ -60,3 +60,21 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 3. `.\env\Scripts\activate`		-> Get inside the virtual environment
 4. `pip install --upgrade pip`		-> get upgraded to pip3
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
+
+## API endpoints
+
+Endpoints (Enigma)
+- [ ] Api.enigmavssut.com/courses/article-list  methods= POST, GET
+- [ ] Api.enigmavssut.com/courses/track-list   methods= POST,  GET
+- [ ] Api.enigmavssut.com/courses/article-list   methods=GET
+- [ ] Api.enigmavssut.com/courses/topic-detail/<slug>/   methods=GET, DELETE
+- [ ] Api.enigmavssut.com/courses/article-detail/<slug>/  methods=GET, DELETE
+- [ ] Api.enigmavssut.com/courses/track-detail/<slug>/  methods=GET, DELETE
+- [ ] Api.enigmavssut.com/courses/create-article  methods=POST
+- [ ] Api.enigmavssut.com/courses/edit-article/<slug>/  methods=PUT
+- [ ] Api.enigmavssut.com/courses/edit-track/<slug>/  methods=PUT
+- [ ] Api.enigmavssut.com/courses/edit-topic/<slug>/  methods=PUT
+- [ ] Api.enigmavssut.com/courses/article-status-update/   methods=POST
+- [ ] Api.enigmavssut.com/courses/article-details-list   methods=GET
+- [ ] Api.enigmavssut.com/courses/article-image-list/    methods=GET
+- [ ] Api.enigmavssut.com/courses/article-image-detail/<name>/    methods=GET
