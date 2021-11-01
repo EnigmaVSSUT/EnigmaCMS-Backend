@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'courses',
     'members',
+    'projects',
+    'events',
     'baton',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -14,13 +14,5 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = member_models.Member
 
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = member_models.Event
 
-class EventRegistrationSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = member_models.EventRegistration
 

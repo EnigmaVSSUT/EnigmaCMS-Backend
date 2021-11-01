@@ -25,73 +25,72 @@ class ArticleList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = core_models.Article.objects.filter(status='Published')
-        section_slug = self.request.query_params.get('section')
-        edition_slug = self.request.query_params.get('edition')
-        if section_slug is not None:
+        topic_slug = self.request.query_params.get('topic')
+        track_slug = self.request.query_params.get('track')
+        if topic_slug is not None:
             try:
-                section = core_models.Section.objects.get(slug=section_slug)
-                queryset = queryset.filter(section=section, status='Published')
+                topic = core_models.Topic.objects.get(slug=topic_slug)
+                queryset = queryset.filter(topic=topic, status='Published')
             except:
                 queryset = core_models.Article.objects.filter(status='Published')
-        if edition_slug is not None:
+        if track_slug is not None:
             try:
-                edition = core_models.Edition.objects.get(slug=edition_slug)
-                queryset = edition.articles.filter(status='Published')
+                track = core_models.Track.objects.get(slug=track_slug)
+                queryset = track.articles.filter(status='Published')
             except:
                 queryset = core_models.Article.objects.filter(status='Published')
         return queryset
 
-class SectionList(generics.ListCreateAPIView):
-    queryset = core_models.Section.objects.all()
-    serializer_class = core_serializers.SectionSerializer
+class TpoicList(generics.ListCreateAPIView):
+    queryset = core_models.Topic.objects.all()
+    serializer_class = core_serializers.TopicSerializer
 
-class EditionList(generics.ListCreateAPIView):
-    queryset = core_models.Edition.objects.filter(is_active=True).order_by('-timestamp')
-    serializer_class = core_serializers.EditionSerializer
+class TrackList(generics.ListCreateAPIView):
+    queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
+    serializer_class = core_serializers.TrackSerializer
 
     # def get(self, request, *args, **kwargs):
     #     update_subscription()
     #     return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = core_models.Edition.objects.filter(is_active=True).order_by('-timestamp')
+        queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
         try:
             site = self.request.META['HTTP_ORIGIN']
             if site == 'https://club.enigmavssut.com' or site=='http://localhost:3000' or site=='http://localhost:8080':
                 # update_subscription()
-                queryset = core_models.Edition.objects.all().order_by('-timestamp')
+                queryset = core_models.Track.objects.all().order_by('-timestamp')
             
             elif site == 'https://enigmavssut.com' or site=='http://localhost:3000':
-                queryset = core_models.Edition.objects.filter(is_active=True).order_by('-timestamp')
+                queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
             return queryset
         except:
             return queryset
 
 class CreateArticle(GenericAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = core_serializers.ArticleEditionSerializer
+    serializer_class = core_serializers.ArticleTrackSerializer
     def post(self, request, *args, **kwargs):
         context = {}
-        serializer = core_serializers.ArticleEditionSerializer(data=request.data)
+        serializer = core_serializers.ArticleTrackSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                curr_author = core_models.Writer.objects.get(user=request.user)
+                curr_author = core_models.Member.objects.get(user=request.user)
             except:
                 return Response({"message": "You are not an author. You cannot create article"}, status=HTTP_400_BAD_REQUEST)
             this_article = serializer.save(writer=curr_author)
             context['new_article'] = serializer.data
 
-            # curr_edition_slug = serializer.data['edition_slug']
-            curr_edition = this_article.edition
-            context['message'] = f'Article added to edition {curr_edition.name}'
+            curr_track = this_article.track
+            context['message'] = f'Article added to track {curr_track.name}'
 
             return Response(context, status=HTTP_200_OK)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class SectionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Section.objects.all()
-    serializer_class = core_serializers.SectionSerializer
+class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = core_models.Topic.objects.all()
+    serializer_class = core_serializers.TopicSerializer
     lookup_field = 'slug'
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -109,34 +108,34 @@ class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
             
         return super().get(request, *args, **kwargs)
 
-class EditionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Edition.objects.all()
-    serializer_class = core_serializers.EditionSerializer
+class TrackDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = core_models.Track.objects.all()
+    serializer_class = core_serializers.TrackSerializer
     lookup_field = 'slug'
 
 
 class ArticlePartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = core_models.Article.objects.all()
-    serializer_class = core_serializers.ArticleEditionSerializer
+    serializer_class = core_serializers.ArticleTrackSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class EditionPartialUpdateView(GenericAPIView, UpdateModelMixin):
+class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = core_models.Edition.objects.all()
-    serializer_class = core_serializers.EditionSerializer
+    queryset = core_models.Track.objects.all()
+    serializer_class = core_serializers.TrackSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class SectionPartialUpdateView(GenericAPIView, UpdateModelMixin):
+class TopicPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = core_models.Section.objects.all()
-    serializer_class = core_serializers.SectionSerializer
+    queryset = core_models.Topic.objects.all()
+    serializer_class = core_serializers.TopicSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):

@@ -5,14 +5,14 @@ from . import views
 
 urlpatterns = [
     path('article-list', views.ArticleList.as_view(), name="article-list"),
-    path('edition-list', views.EditionList.as_view(), name="edition-list"),
-    path('section-detail/<slug>/', views.SectionDetail.as_view(), name="item_detail"),
+    path('edition-list', views.TrackList.as_view(), name="track-list"),
+    path('topic-detail/<slug>/', views.TopicDetail.as_view(), name="topic-detail"),
     path('article-detail/<slug>/', views.ArticleDetail.as_view(), name="item_detail"),
-    path('edition-detail/<slug>/', views.EditionDetail.as_view(), name="item_detail"),
+    path('edition-detail/<slug>/', views.TrackDetail.as_view(), name="track-detail"),
     path('create-article/', views.CreateArticle.as_view(), name="create-article"),
     path('edit-article/<slug>/', views.ArticlePartialUpdateView.as_view(), name="edit-article"),
-    path('edit-edition/<slug>/', views.EditionPartialUpdateView.as_view(), name="edit-edition"),
-    path('edit-section/<slug>/', views.SectionPartialUpdateView.as_view(), name="edit-section"),
+    path('edit-edition/<slug>/', views.TrackPartialUpdateView.as_view(), name="edit-track"),
+    path('edit-topic/<slug>/', views.TopicPartialUpdateView.as_view(), name="edit-topic"),
     path('article-status-update/', views.ArticleStatusChange.as_view(), name="article-status-update"),
     path('article-details-list/', views.ArticlePublishingRequests.as_view(), name="article-details-list"),
 

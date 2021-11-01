@@ -19,13 +19,13 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = member_models.Member
 
-class SectionSerializer(serializers.ModelSerializer):
+class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
-        model = core_models.Section
+        model = core_models.Topic
 
 
-class ArticleEditionSerializer(serializers.ModelSerializer):
+class ArticleTrackSerializer(serializers.ModelSerializer):
     # edition = EditionSerializer(many=True, read_only=True)
     # edition_slug = serializers.CharField()
     class Meta:
@@ -34,7 +34,7 @@ class ArticleEditionSerializer(serializers.ModelSerializer):
 
 class ArticleListSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    section = SectionSerializer(read_only=True)
+    topic = TopicSerializer(read_only=True)
     class Meta:
         # fields = '__all__'
         exclude = ('content', )
@@ -42,16 +42,16 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    section = SectionSerializer(read_only=True)
+    topic = TopicSerializer(read_only=True)
     class Meta:
         fields = '__all__'
         model = core_models.Article
 
-class EditionSerializer(serializers.ModelSerializer):
+class TrackSerializer(serializers.ModelSerializer):
     # articles = ArticleSerializer(many=True, read_only=True)
     class Meta:
         fields = '__all__'
-        model = core_models.Edition
+        model = core_models.Track
 
 class ArticleImageSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from . import models as member_models
 from . import serializers as member_serializers
-from django.shortcuts import render
-from django.shortcuts import render
 from rest_framework import generics, serializers
 
 from rest_framework.generics import GenericAPIView
@@ -41,13 +39,7 @@ class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = member_serializers.MemberSerializer
     lookup_field = 'slug'
 
-class EventList(generics.ListCreateAPIView):
-    queryset = member_models.Event.objects.all()
-    serializer_class = member_serializers.EventSerializer
 
-class EventDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = member_models.Event.objects.all()
-    serializer_class = member_serializers.EventSerializer
 
 
 
