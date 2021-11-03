@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
 
 class MemberSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer()
     class Meta:
         fields = '__all__'
         model = member_models.Member
