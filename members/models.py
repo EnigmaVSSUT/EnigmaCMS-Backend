@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django_mysql.models import ListCharField
 
 YEAR_CHOICES = [
     ('1', 'First'),
@@ -21,7 +22,7 @@ class Member(models.Model):
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100, null=True)
-    password = models.CharField(max_length=50, null=True)
+    # password = models.CharField(max_length=50, null=True)
 
     description = models.TextField(null=True, blank=True)
     year = models.CharField(choices=YEAR_CHOICES, max_length=6)
@@ -37,6 +38,15 @@ class Member(models.Model):
     profile_pic = models.ImageField(
         upload_to='member_profile_pic', default='default.jpg')
     slug = models.SlugField(unique=True, blank=True)
+    gender = models.CharField(max_length=20, null=True)
+    skills = ListCharField(
+        base_field=models.CharField(max_length=40),
+        size=20,
+        max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
+    )
+    domain = models.CharField(max_length=100, null=True)
+    registration_number = models.CharField(max_length=12, null=True)
+
     branch = models.CharField(max_length=100, null=True)
 
     def __str__(self):
@@ -51,7 +61,7 @@ class Member(models.Model):
         new_user = User.objects.create_user(
             username = self.slug,
             email = self.email,
-            password = self.password,
+            password = self.slug,
             first_name = self.first_name,
             last_name = self.last_name,
         )
