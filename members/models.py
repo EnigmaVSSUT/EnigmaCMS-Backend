@@ -20,7 +20,6 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
-    username = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100, null=True)
     password = models.CharField(max_length=50, null=True)
 
@@ -50,7 +49,7 @@ class Member(models.Model):
             self.slug += '-' + str(self.user.id)
         
         new_user = User.objects.create_user(
-            username = self.username,
+            username = self.slug,
             email = self.email,
             password = self.password,
             first_name = self.first_name,
