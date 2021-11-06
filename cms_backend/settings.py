@@ -147,7 +147,7 @@ os.path.join(BASE_DIR, 'static',),)
 STATIC_URL = '/static/'
 
 # Default primary key field type
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -172,6 +172,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+
+AWS_ACCESS_KEY_ID = "AKIA437JB3TYGVJNFY2T"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "enigma-vssut"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 429916160
 
 CORS_ORIGIN_ALLOW_ALL = True
 

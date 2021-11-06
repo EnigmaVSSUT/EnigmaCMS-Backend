@@ -17,27 +17,47 @@ GENDER_CHOICES = [
 ]
 
 class Member(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    first_name = models.CharField(max_length=100, null=True)
+    last_name = models.CharField(max_length=100, null=True)
+    username = models.CharField(max_length=100, null=True)
+    email = models.CharField(max_length=100, null=True)
+    password = models.CharField(max_length=50, null=True)
+
     description = models.TextField(null=True, blank=True)
     year = models.CharField(choices=YEAR_CHOICES, max_length=6)
     github = models.CharField(max_length=100, null=True, blank=True)
     linkedin = models.CharField(max_length=100, null=True, blank=True)
     facebook = models.CharField(max_length=100, null=True, blank=True)
     instagram = models.CharField(max_length=100, null=True, blank=True)
+    twitter = models.CharField(max_length=100, null=True, blank=True)
+    codechef = models.CharField(max_length=100, null=True, blank=True)
+    geeksforgeeks = models.CharField(max_length=100, null=True, blank=True)
+    hackerearth = models.CharField(max_length=100, null=True, blank=True)
     others = models.CharField(max_length=100, null=True, blank=True)
     profile_pic = models.ImageField(
         upload_to='member_profile_pic', default='default.jpg')
     slug = models.SlugField(unique=True, blank=True)
     first_password = models.CharField(max_length=10, null=True, blank=True)
+    branch = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.first_name + '-' + self.user.last_name)
+        self.slug = slugify(self.first_name + '-' + self.last_name)
         slug_eixts = Member.objects.filter(slug=self.slug).exists()
         if slug_eixts:
             self.slug += '-' + str(self.user.id)
+        
+        new_user = User.objects.create_user(
+            username = self.username,
+            email = self.email,
+            password = self.password,
+            first_name = self.first_name,
+            last_name = self.last_name,
+        )
+        self.user = new_user
         super(Member, self).save(*args, **kwargs)
 
 from django.db import models
