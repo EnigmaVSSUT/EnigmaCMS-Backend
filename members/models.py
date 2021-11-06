@@ -38,7 +38,6 @@ class Member(models.Model):
     profile_pic = models.ImageField(
         upload_to='member_profile_pic', default='default.jpg')
     slug = models.SlugField(unique=True, blank=True)
-    first_password = models.CharField(max_length=10, null=True, blank=True)
     branch = models.CharField(max_length=100, null=True)
 
     def __str__(self):

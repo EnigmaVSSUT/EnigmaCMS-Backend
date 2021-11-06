@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         # fields = '__all__'
-        exclude = ('user',)
+        exclude = ('user', 'slug')
         model = member_models.Member
 
 
