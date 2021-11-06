@@ -59,14 +59,17 @@ class Member(models.Model):
         if slug_eixts:
             self.slug += '-' + str(self.user.id)
         
-        new_user = User.objects.create_user(
-            username = self.slug,
-            email = self.email,
-            password = self.slug,
-            first_name = self.first_name,
-            last_name = self.last_name,
-        )
-        self.user = new_user
+        if self.user:
+            pass
+        else:
+            new_user = User.objects.create_user(
+                username = self.slug,
+                email = self.email,
+                password = self.slug,
+                first_name = self.first_name,
+                last_name = self.last_name,
+            )
+            self.user = new_user
         super(Member, self).save(*args, **kwargs)
 
 from django.db import models
