@@ -22,6 +22,7 @@ class Member(models.Model):
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100, null=True)
+    phone_number = models.CharField(max_length=15, null=True)
     # password = models.CharField(max_length=50, null=True)
 
     description = models.TextField(null=True, blank=True)
