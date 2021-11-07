@@ -12,9 +12,20 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+with open(os.path.join(BASE_DIR,'credentials.json')) as credentials_file:
+    credentials=json.load(credentials_file)
+
+def get_secret(setting,secrets=credentials):
+    """Get secret settings or fail with Improperly configured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 
 # Quick-start development settings - unsuitable for production
@@ -95,10 +106,10 @@ WSGI_APPLICATION = 'cms_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'enigma_backend',  # To be placed in credentials.json file
-        'HOST': '159.65.153.157',  # To be placed in credentials.json file
-        'USER': 'enigma',  # To be placed in credentials.json file
-        'PASSWORD': 'Enigma@vssut'  # To be placed in credentials.json file
+        'NAME': get_secret('NAME'),
+        'HOST': get_secret('HOST'),
+        'USER': get_secret('USER'),
+        'PASSWORD': get_secret('PASSWORD')
     }
 }
 
@@ -165,8 +176,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.zoho.in'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'no-reply@enigmavssut.com'  # To be placed in credentials.json file
-EMAIL_HOST_PASSWORD = 'Enigma@vssut2021'  # To be placed in credentials.json file
+EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 GRAPHENE = {
@@ -183,13 +194,13 @@ REST_FRAMEWORK = {
 }
 
 
-AWS_ACCESS_KEY_ID = "AKIA437JB3TYAU5KGICK"  # To be placed in credentials.json file
-AWS_SECRET_ACCESS_KEY = "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"  # To be placed in credentials.json file
-AWS_STORAGE_BUCKET_NAME = "enigma-vssut"  # To be placed in credentials.json file
+AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_secret('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'ap-south-1'
-AWS_S3_SIGNATURE_VERSION = 's3v4'  # To be placed in credentials.json file
+AWS_S3_SIGNATURE_VERSION = get_secret('AWS_S3_SIGNATURE_VERSION')
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
