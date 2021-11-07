@@ -27,6 +27,7 @@ class Member(models.Model):
 
     description = models.TextField(null=True, blank=True)
     year = models.CharField(choices=YEAR_CHOICES, max_length=6)
+    year_of_passing = models.CharField(max_length=5, null=True)
     github = models.CharField(max_length=100, null=True, blank=True)
     linkedin = models.CharField(max_length=100, null=True, blank=True)
     facebook = models.CharField(max_length=100, null=True, blank=True)
