@@ -72,6 +72,9 @@ class Member(models.Model):
             )
             self.user = new_user
         super(Member, self).save(*args, **kwargs)
+    
+    class Meta:
+        ordering = ['first_name']
 
 from django.db import models
 from django.contrib.auth.models import User
