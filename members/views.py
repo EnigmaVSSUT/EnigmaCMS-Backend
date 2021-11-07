@@ -54,8 +54,12 @@ class MemberList(generics.ListCreateAPIView):
     serializer_class = member_serializers.MemberSerializer
 
     def get_queryset(self):
-	    year = get_object_or_404(self.kwargs.get('year'))
-	    return member_models.objects.filter(year=year)
+        queryset = member_models.Member.objects.all()
+        year_of_passing = self.request.query_params.get('year_of_passing')
+        if year_of_passing:
+            return queryset.filter(year_of_passing=year_of_passing)
+        else:
+            return queryset
     
 
 
