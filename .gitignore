@@ -115,3 +115,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
+
+credentials.json

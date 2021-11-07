@@ -3,6 +3,11 @@ from . import models as member_models
 from . import serializers as member_serializers
 from rest_framework import generics, serializers
 
+from django.conf import settings
+from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from django.views.generic import View
@@ -19,10 +24,25 @@ from rest_framework.permissions import (
     )
 import random
 import string
+
+SENDER_EMAIL = settings.EMAIL_HOST_USER
 def generate_random_string(n):
     return (''.join(random.choices(string.ascii_lowercase + string.digits, k=n)))
 
-
+def send_member_confirmation(member):
+    context = {
+        "member": member,
+    }
+    html_content = render_to_string("mails/member_confirmation.html", context)
+    text_content = strip_tags(html_content)
+    email = EmailMultiAlternatives(
+        "Form successfully submitted",
+        text_content,
+        SENDER_EMAIL,
+        ['priyanshusingh1998@gmail.com', member.email]
+    )
+    email.attach_alternative(html_content, "text/html")
+    email.send()
 
 # Create your views here.
 def home (request):
@@ -36,6 +56,7 @@ class MemberList(generics.ListCreateAPIView):
     def get_queryset(self):
 	    year = get_object_or_404(self.kwargs.get('year'))
 	    return member_models.objects.filter(year=year)
+    
 
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = '__all__'
+        fields = ('first_name', 'last_name', 'email', 'username', 'password')
         # exclude = ('password',)
         model = User
 
 class MemberSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
     class Meta:
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('user', 'slug')
         model = member_models.Member
 
 

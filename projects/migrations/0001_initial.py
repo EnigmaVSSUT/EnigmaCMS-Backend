@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField()),
-                ('tect_stack', django_mysql.models.ListCharField(models.CharField(max_length=40), max_length=1050, size=20)),
-                ('member', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='members.member')),
+                ('tech_stack', django_mysql.models.ListCharField(models.CharField(max_length=40), max_length=1050, size=20)),
+                ('members', models.ManyToManyField(to='members.Member')),
             ],
         ),
     ]
