@@ -40,15 +40,6 @@ class Member(models.Model):
             self.slug += '-' + str(self.user.id)
         super(Member, self).save(*args, **kwargs)
 
-from django.db import models
-from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
-
-
-
-
-
-
 
 class Contactus(models.Model):
     name = models.CharField(max_length=100)

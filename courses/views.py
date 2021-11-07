@@ -41,7 +41,7 @@ class ArticleList(generics.ListCreateAPIView):
                 queryset = core_models.Article.objects.filter(status='Published')
         return queryset
 
-class TpoicList(generics.ListCreateAPIView):
+class TopicList(generics.ListCreateAPIView):
     queryset = core_models.Topic.objects.all()
     serializer_class = core_serializers.TopicSerializer
 

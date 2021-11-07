@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from . import models as member_models
 from . import serializers as member_serializers
 from rest_framework import generics, serializers
@@ -30,8 +30,12 @@ def home (request):
 
 class MemberList(generics.ListCreateAPIView):
     # authentication_classes = [IsAuthenticated]
-    queryset = member_models.Member.objects.all()
+    # queryset = member_models.Member.objects.all()
     serializer_class = member_serializers.MemberSerializer
+
+    def get_queryset(self):
+	    year = get_object_or_404(self.kwargs.get('year'))
+	    return member_models.objects.filter(year=year)
 
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
