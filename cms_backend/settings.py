@@ -160,6 +160,15 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # ACCOUNT_UNIQUE_EMAIL = True
 
 
+# django Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.zoho.in'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'no-reply@enigmavssut.com'
+EMAIL_HOST_PASSWORD = 'Enigma@vssut2021'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 GRAPHENE = {
     'SCHEMA':'cms_backend.Schema.Schema'
 }
