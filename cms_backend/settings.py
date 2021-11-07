@@ -95,10 +95,10 @@ WSGI_APPLICATION = 'cms_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'enigma_backend',
-        'HOST': '159.65.153.157',
-        'USER': 'enigma',
-        'PASSWORD': 'Enigma@vssut'
+        'NAME': 'enigma_backend',  # To be placed in credentials.json file
+        'HOST': '159.65.153.157',  # To be placed in credentials.json file
+        'USER': 'enigma',  # To be placed in credentials.json file
+        'PASSWORD': 'Enigma@vssut'  # To be placed in credentials.json file
     }
 }
 
@@ -165,8 +165,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.zoho.in'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'no-reply@enigmavssut.com'
-EMAIL_HOST_PASSWORD = 'Enigma@vssut2021'
+EMAIL_HOST_USER = 'no-reply@enigmavssut.com'  # To be placed in credentials.json file
+EMAIL_HOST_PASSWORD = 'Enigma@vssut2021'  # To be placed in credentials.json file
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 GRAPHENE = {
@@ -183,13 +183,13 @@ REST_FRAMEWORK = {
 }
 
 
-AWS_ACCESS_KEY_ID = "AKIA437JB3TYAU5KGICK"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "enigma-vssut"
+AWS_ACCESS_KEY_ID = "AKIA437JB3TYAU5KGICK"  # To be placed in credentials.json file
+AWS_SECRET_ACCESS_KEY = "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"  # To be placed in credentials.json file
+AWS_STORAGE_BUCKET_NAME = "enigma-vssut"  # To be placed in credentials.json file
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'ap-south-1'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_SIGNATURE_VERSION = 's3v4'  # To be placed in credentials.json file
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
