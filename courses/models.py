@@ -14,6 +14,15 @@ ARTICLE_STATUS = {
     ('Rejected', 'Rejected')
 }
 
+CATEGORY_CHOICES = [
+    ('Android', 'Android'),
+    ('Web', 'Web'),
+    ('Backend', 'Backend'),
+    ('ML/AI', 'ML/AI'),
+    ('UI/UX', 'UI/UX'),
+    ('AR/VR', 'AR/VR'),
+]
+
 HOME_PAGE_DISPLAY_TYPES = {
     ('Featured', 'Featured'),
     ('Exclusive', 'Exclusive')
@@ -34,6 +43,7 @@ class Article(models.Model):
     topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
     content = models.TextField(null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True)
     image = models.ImageField(upload_to='ArticlePics', default='article_default.jpg')
