@@ -8,7 +8,7 @@ from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.mixins import UpdateModelMixin
 from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
@@ -108,5 +108,87 @@ class AddMemberView(APIView):
         }
         return Response(context, status=HTTP_200_OK)
 
+class ProfileView(APIView):
+    authentication_classes = [IsAuthenticated]
+    def get(self,request,*args,**kwargs):
+        site = request.META['HTTP_ORIGIN']
+        context = {}
+        user_qs = member_models.Member.objects.filter(user=request.user)
+        if user_qs.exists():
+            context['curr_user'] = member_serializers.MemberSerializer(user_qs[0]).data
+            
+        return Response(context,status=HTTP_200_OK)
 
+    def post(self,request,*args,**kwargs):
+        content = {}
+        username = request.data.get('username')
+        email = request.data.get('email')
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        description=request.data.get('description')
+        linkedin = request.data.get('linkedin')
+        github = request.data.get('github')
+        facebook = request.data.get('facebook')
+        instagram = request.data.get('instagram')
+        twitter = request.data.get('twitter')
+        codechef = request.data.get('codechef')
+        geeksforgeeks = request.data.get('geeksforgeeks')
+        hackerearth = request.data.get('hackerearth')
+        others = request.data.get('others')
+        year = request.data.get('year')
+        curr_member=request.user
+        if username:
+            curr_member.username = username
+        if email:
+            curr_member.email = email
+        if first_name:
+            curr_member.first_name = first_name
+        if last_name:
+            curr_member.last_name = last_name
+        if description:
+            curr_member.description = description
+        if linkedin:
+            curr_member.linkedin = linkedin
+        if github:
+            curr_member.github = github
+        if facebook:
+            curr_member.facebook = facebook
+        if instagram:
+            curr_member.instagram = instagram
+        if twitter:
+            curr_member.twitter = twitter
+        if codechef:
+            curr_member.codechef = codechef
+        if geeksforgeeks:
+            curr_member.geeksforgeeks = geeksforgeeks
+        if hackerearth:
+            curr_member.hackerearth = hackerearth
+        if others:
+            curr_member.others = others
+        if year:
+            curr_member.year = year
+        curr_member.save()
+        content['curr_member'] = member_serializers.UserSerializer(curr_member).data
+        user_qs = member_models.Member.objects.filter(user=request.user)
+        if user_qs.exists():
+            curr_user = user_qs[0]
+            serializer = member_serializers.MemberSerializer(curr_user,data=request.data,partial=True)
+            if serializer:
+                context = {
+                    "message":"Member Details Updated"
+                }
+                return Response(context,status = HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status = HTTP_400_BAD_REQUEST)
+
+        return Response(content,status = HTTP_200_OK)
+
+class PartialView(GenericAPIView, UpdateModelMixin):
+    permission_classes= [IsAuthenticatedOrReadOnly]
+    queryset = member_models.Member.objects.all()
+    serializer_class = member_serializers.MemberSerializer
+    lookup_field = 'slug'
+    
+    def put(self,request,*args,**kwargs):
+        return self.partial_update(request,*args,**kwargs)
 
