@@ -56,8 +56,11 @@ class MemberList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = member_models.Member.objects.all()
         year_of_passing = self.request.query_params.get('year_of_passing')
+        lookup_id = self.request.query_params.get('id')
         if year_of_passing:
             return queryset.filter(year_of_passing=year_of_passing)
+        elif lookup_id:
+            return queryset.filter(id =lookup_id)
         else:
             return queryset
     
