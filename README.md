@@ -51,6 +51,10 @@ __First get into `Enigma_CMS_backend/project` an then follow the steps given bel
 4. `pip install --upgrade pip`		-> get upgraded to pip3
 5. `pip install -r requirements.txt`	-> Thereafter install all the packages as per the reqirements.txt
 
+## Opening django shell to visualize the data (Linux and MacOS)
+1. `python manage.py shell_plus --notebook`		-> Install the django_extensions, IPython and notebook libraries
+
+
 
 ## Setting up the environment (Windows)
 _Always make sure you have python 3 and are using virtualenv to install and manage your packages_

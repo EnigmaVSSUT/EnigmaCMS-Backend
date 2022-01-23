@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django_mysql.models import ListCharField
+from autoslug import AutoSlugField
 
 YEAR_CHOICES = [
     ('1', 'First'),

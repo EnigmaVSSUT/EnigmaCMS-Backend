@@ -1,3 +1,4 @@
+from cgitb import lookup
 from django.shortcuts import render
 from . import models as event_models
 from . import serializers as event_serializers
@@ -25,6 +26,11 @@ class EventList(generics.ListCreateAPIView):
     queryset = event_models.Event.objects.all()
     serializer_class = event_serializers.EventSerializer
 
-class EventDetail(generics.RetrieveUpdateDestroyAPIView):
+class EventDetail(generics.RetrieveDestroyAPIView):
     queryset = event_models.Event.objects.all()
     serializer_class = event_serializers.EventSerializer
+    lookup_field = 'slug'
+
+class RegisterForEventView(generics.ListCreateAPIView):
+    queryset = event_models.EventRegistration.objects.all()
+    serializer_class = event_serializers.EventRegistrationSerializer
