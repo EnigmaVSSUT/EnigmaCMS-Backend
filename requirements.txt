@@ -22,7 +22,7 @@ dj-rest-auth==2.1.7
 Django==3.2.5
 django-allauth==0.44.0
 django-autoslug==1.9.8
-django-baton==2.2.1
+django-baton==2.2.3
 django-bleach==0.6.1
 django-bootstrap4==3.0.1
 django-cleanup==5.2.0
@@ -68,6 +68,7 @@ pathspec==0.9.0
 pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==8.3.0
+pkg_resources==0.0.0
 platformdirs==2.4.1
 prometheus-client==0.12.0
 prompt-toolkit==3.0.24
@@ -96,7 +97,7 @@ testpath==0.5.0
 tomli==1.2.3
 tornado==6.1
 traitlets==5.1.1
-typing-extensions==4.0.1
+typing_extensions==4.0.1
 urllib3==1.26.6
 wcwidth==0.2.5
 webencodings==0.5.1
