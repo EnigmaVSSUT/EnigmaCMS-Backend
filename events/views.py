@@ -21,10 +21,24 @@ from rest_framework.permissions import (
     )
 import random
 import string
+from django.utils import timezone
 
 class EventList(generics.ListCreateAPIView):
     queryset = event_models.Event.objects.all().order_by('-start_date')
     serializer_class = event_serializers.EventSerializer
+
+    def get_queryset(self):
+        type = self.request.query_params.get('type')
+        today = timezone.now().date()
+        if type=='current':
+            queryset = event_models.Event.objects.filter(end_date__gte=today, start_date__lte=today).order_by('-start_date')
+        elif type=='upcoming':
+            queryset = event_models.Event.objects.filter(start_date__gte=today).order_by('-start_date')
+        elif type=='past':
+            queryset = event_models.Event.objects.filter(end_date__lte=today).order_by('-start_date')
+        else:
+            queryset = event_models.Event.objects.all().order_by('-start_date')
+        return queryset
 
 class EventDetail(generics.RetrieveDestroyAPIView):
     queryset = event_models.Event.objects.all()
