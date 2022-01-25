@@ -23,7 +23,7 @@ import random
 import string
 
 class EventList(generics.ListCreateAPIView):
-    queryset = event_models.Event.objects.all()
+    queryset = event_models.Event.objects.all().order_by('-start_date')
     serializer_class = event_serializers.EventSerializer
 
 class EventDetail(generics.RetrieveDestroyAPIView):
