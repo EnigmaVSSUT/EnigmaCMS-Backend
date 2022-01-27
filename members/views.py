@@ -96,6 +96,9 @@ class AddMemberView(APIView):
 
         new_member = member_models.Member()
         new_member.user = new_user
+        new_member.first_name = first_name
+        new_member.last_name = last_name
+        new_member.email = email
         new_member.first_password = new_password
         new_member.description = request.data.get('description')
         new_member.linkedin = request.data.get('linkedin')
