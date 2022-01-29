@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "dcef7af9-87b7-4eff-be9c-34c86728db95",
+		"name": "EnigmaCMS-Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "All events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_events}}/list",
+							"host": [
+								"{{enigma_api_events}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single event details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_events}}/detail/liftoff-c-2022-2",
+							"host": [
+								"{{enigma_api_events}}"
+							],
+							"path": [
+								"detail",
+								"liftoff-c-2022-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register for event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event\": ,\r\n    \"firstname\": ,\r\n    \"lastname\": ,\r\n    \"gender\": ,\r\n    \"email\": ,\r\n    \"whatsapp_no\": ,\r\n    \"year\": ,\r\n    \"branch\": ,\r\n    \"reg_no\": ,\r\n    \"expectations\": ,\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enigma_api_events}}/register/",
+							"host": [
+								"{{enigma_api_events}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "All members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_members}}/member-list",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"member-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single member details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_members}}/member-detail/<slug>",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"member-detail",
+								"<slug>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new member",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{enigma_api_members}}/create-member/",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"create-member",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Article list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-list",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Track list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/track-list",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"track-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topic Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/topic-detail/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"topic-detail",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-detail/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-detail",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Track detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/track-detail/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"track-detail",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/create-article/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"create-article",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/edit-article/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"edit-article",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/edit-track/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"edit-track",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Topic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/edit-topic/<slug>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"edit-topic",
+								"<slug>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Status Update",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-status-update/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-status-update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Detail List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-details-list/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-details-list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Image List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-image-list/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-image-list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Image Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-image-detail/<name>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-image-detail",
+								"<name>",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "enigma_api_base",
+			"value": "https://api.enigmavssut.com/",
+			"type": "string"
+		},
+		{
+			"key": "enigma_api_events",
+			"value": "https://api.enigmavssut.com/events/",
+			"type": "string"
+		},
+		{
+			"key": "enigma_api_members",
+			"value": "https://api.enigmavssut.com/members/",
+			"type": "string"
+		},
+		{
+			"key": "enigma_api_courses",
+			"value": "https://api.enigmavssut.com/courses/",
+			"type": "string"
+		}
+	]
+}
