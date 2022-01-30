@@ -68,7 +68,7 @@ class MemberList(generics.ListCreateAPIView):
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = member_models.Member.objects.all()
-    serializer_class = member_serializers.MemberListSerializer
+    serializer_class = member_serializers.MemberDetailSerializer
     lookup_field = 'slug'
 
 

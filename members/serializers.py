@@ -15,6 +15,11 @@ class CreateMemberSerializer(serializers.ModelSerializer):
         model = member_models.Member
 
 class MemberListSerializer(serializers.ModelSerializer):
+    class Meta:
+        exclude = ('user')
+        model = member_models.Member
+
+class MemberDetailSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         fields = '__all__'
