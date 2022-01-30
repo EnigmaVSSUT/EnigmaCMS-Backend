@@ -8,11 +8,16 @@ class UserSerializer(serializers.ModelSerializer):
         # exclude = ('password',)
         model = User
 
-class MemberSerializer(serializers.ModelSerializer):
+class CreateMemberSerializer(serializers.ModelSerializer):
     class Meta:
         # fields = '__all__'
-        exclude = ('user', 'slug')
+        exclude = ('user')
         model = member_models.Member
 
+class MemberListSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        fields = '__all__'
+        model = member_models.Member
 
 

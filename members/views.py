@@ -51,7 +51,7 @@ def home (request):
 class MemberList(generics.ListCreateAPIView):
     # authentication_classes = [IsAuthenticated]
     # queryset = member_models.Member.objects.all()
-    serializer_class = member_serializers.MemberSerializer
+    serializer_class = member_serializers.MemberListSerializer
 
     def get_queryset(self):
         queryset = member_models.Member.objects.all()
@@ -68,7 +68,7 @@ class MemberList(generics.ListCreateAPIView):
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = member_models.Member.objects.all()
-    serializer_class = member_serializers.MemberSerializer
+    serializer_class = member_serializers.MemberListSerializer
     lookup_field = 'slug'
 
 
