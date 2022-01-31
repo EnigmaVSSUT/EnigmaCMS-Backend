@@ -11,12 +11,12 @@ class UserSerializer(serializers.ModelSerializer):
 class CreateMemberSerializer(serializers.ModelSerializer):
     class Meta:
         # fields = '__all__'
-        exclude = ('user')
+        exclude = ('user',)
         model = member_models.Member
 
 class MemberListSerializer(serializers.ModelSerializer):
     class Meta:
-        exclude = ('user')
+        exclude = ('user',)
         model = member_models.Member
 
 class MemberDetailSerializer(serializers.ModelSerializer):
