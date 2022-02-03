@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 from dateutil.relativedelta import relativedelta
 from members.models import Member
-
+from django_mysql.models import ListCharField
 ARTICLE_STATUS = {
     ('Draft', 'Draft'),
     ('Created', 'Created'),
@@ -31,8 +31,9 @@ HOME_PAGE_DISPLAY_TYPES = {
 }
 
 
-class Tag(models.Model):  # rename to tag
+class Tag(models.Model):
     name = models.CharField(max_length=50)
+
     slug = AutoSlugField(populate_from='name', unique=True)
 
     def __str__(self):
@@ -44,7 +45,11 @@ class Article(models.Model):
     contributors = models.ManyToManyField(
         Member, related_name="other_contributors", blank=True)
     # Tags to be multivalued
-    Tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    tag = ListCharField(
+        base_field=models.CharField(Tag, max_length=40),
+        size=20,
+        max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
+    )
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)

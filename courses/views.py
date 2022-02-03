@@ -24,7 +24,7 @@ class ArticleList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = core_models.Article.objects.filter(status='Published')
-        Tag_slug = self.request.query_params.get('Tag')
+        Tag_slug = self.request.query_params.get('tag')
         track_slug = self.request.query_params.get('track')
         if Tag_slug is not None:
             try:
@@ -204,3 +204,7 @@ def article_image_detail(reqeust, name):
     response['Content-Type'] = "image/*"
     response['Cache-Control'] = "max-age=0"
     return response
+
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    category =
