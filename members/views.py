@@ -1,3 +1,6 @@
+from rest_auth.views import LoginView
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.authtoken.models import Token
 from django.shortcuts import render, get_object_or_404
 from . import models as member_models
 from . import serializers as member_serializers
@@ -19,15 +22,18 @@ from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
 from django.contrib.auth.models import User
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.permissions import (
-        SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, 
-        BasePermission, IsAdminUser, DjangoModelPermissions, AllowAny
-    )
+    SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly,
+    BasePermission, IsAdminUser, DjangoModelPermissions, AllowAny
+)
 import random
 import string
 
 SENDER_EMAIL = settings.EMAIL_HOST_USER
+
+
 def generate_random_string(n):
     return (''.join(random.choices(string.ascii_lowercase + string.digits, k=n)))
+
 
 def send_member_confirmation(member):
     context = {
@@ -45,8 +51,11 @@ def send_member_confirmation(member):
     email.send()
 
 # Create your views here.
-def home (request):
+
+
+def home(request):
     return render('home.html')
+
 
 class MemberList(generics.ListCreateAPIView):
     # authentication_classes = [IsAuthenticated]
@@ -60,19 +69,15 @@ class MemberList(generics.ListCreateAPIView):
         if year_of_passing:
             return queryset.filter(year_of_passing=year_of_passing)
         elif lookup_id:
-            return queryset.filter(id =lookup_id)
+            return queryset.filter(id=lookup_id)
         else:
             return queryset
-    
 
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = member_models.Member.objects.all()
     serializer_class = member_serializers.MemberDetailSerializer
     lookup_field = 'slug'
-
-
-
 
 
 class AddMemberView(APIView):
@@ -87,11 +92,11 @@ class AddMemberView(APIView):
         last_name = request.data.get('last_name')
         password = new_password
         new_user = User.objects.create_user(
-            username = username,
-            email = email,
-            password = password,
-            first_name = first_name,
-            last_name = last_name,
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
         )
 
         new_member = member_models.Member()
@@ -115,4 +120,21 @@ class AddMemberView(APIView):
         return Response(context, status=HTTP_200_OK)
 
 
+class LogInView(LoginView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
+        user = User.objects.filter(email=email).first()
 
+        if user is None:
+            raise AuthenticationFailed("Invalid Email Credentials")
+
+        if not user.check_password(password):
+            raise AuthenticationFailed("Invalid password Credentials")
+
+        token = str(Token.objects.get_or_create(user=user)[0])
+        context = {
+            "token": token,
+            'username': user.username,
+        }
+        return Response(context)
