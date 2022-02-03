@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dcef7af9-87b7-4eff-be9c-34c86728db95",
+		"_postman_id": "e69db2fd-5677-4df1-9326-1f4665a6ec04",
 		"name": "EnigmaCMS-Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -132,6 +132,23 @@
 							"path": [
 								"create-member",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account Log In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_members}}/account_login",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"account_login"
 							]
 						}
 					},

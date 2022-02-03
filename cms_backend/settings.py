@@ -17,10 +17,11 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-with open(os.path.join(BASE_DIR,'credentials.json')) as credentials_file:
-    credentials=json.load(credentials_file)
+with open(os.path.join(BASE_DIR, 'credentials.json')) as credentials_file:
+    credentials = json.load(credentials_file)
 
-def get_secret(setting,secrets=credentials):
+
+def get_secret(setting, secrets=credentials):
     """Get secret settings or fail with Improperly configured"""
     try:
         return secrets[setting]
@@ -155,7 +156,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
-os.path.join(BASE_DIR, 'static',),)
+    os.path.join(BASE_DIR, 'static',),)
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -166,9 +167,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 SITE_ID = 1
 LOGIN_URL = 'account_login'
-ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 # ACCOUNT_UNIQUE_EMAIL = True
 
 
@@ -182,7 +186,7 @@ EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 GRAPHENE = {
-    'SCHEMA':'cms_backend.Schema.Schema'
+    'SCHEMA': 'cms_backend.Schema.Schema'
 }
 
 REST_FRAMEWORK = {
@@ -194,7 +198,9 @@ REST_FRAMEWORK = {
     ),
 }
 
-
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'members.serializers.LoginUserSerializer',
+}
 AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = get_secret('AWS_STORAGE_BUCKET_NAME')
@@ -208,4 +214,3 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 429916160
 
 CORS_ORIGIN_ALLOW_ALL = True
-
