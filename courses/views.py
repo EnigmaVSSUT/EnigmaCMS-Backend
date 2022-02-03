@@ -7,9 +7,9 @@ from . import serializers as core_serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import (
-        SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, 
-        BasePermission, IsAdminUser, DjangoModelPermissions, AllowAny
-    )
+    SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly,
+    BasePermission, IsAdminUser, DjangoModelPermissions, AllowAny
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
@@ -18,35 +18,39 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 
-
 class ArticleList(generics.ListCreateAPIView):
     queryset = core_models.Article.objects.filter(status='Published')
     serializer_class = core_serializers.ArticleListSerializer
 
     def get_queryset(self):
         queryset = core_models.Article.objects.filter(status='Published')
-        topic_slug = self.request.query_params.get('topic')
+        Tag_slug = self.request.query_params.get('Tag')
         track_slug = self.request.query_params.get('track')
-        if topic_slug is not None:
+        if Tag_slug is not None:
             try:
-                topic = core_models.Topic.objects.get(slug=topic_slug)
-                queryset = queryset.filter(topic=topic, status='Published')
+                Tag = core_models.Tag.objects.get(slug=Tag_slug)
+                queryset = queryset.filter(Tag=Tag, status='Published')
             except:
-                queryset = core_models.Article.objects.filter(status='Published')
+                queryset = core_models.Article.objects.filter(
+                    status='Published')
         if track_slug is not None:
             try:
                 track = core_models.Track.objects.get(slug=track_slug)
                 queryset = track.articles.filter(status='Published')
             except:
-                queryset = core_models.Article.objects.filter(status='Published')
+                queryset = core_models.Article.objects.filter(
+                    status='Published')
         return queryset
 
-class TopicList(generics.ListCreateAPIView):
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+
+class TagList(generics.ListCreateAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
+
 
 class TrackList(generics.ListCreateAPIView):
-    queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
+    queryset = core_models.Track.objects.filter(
+        is_active=True).order_by('-timestamp')
     serializer_class = core_serializers.TrackSerializer
 
     # def get(self, request, *args, **kwargs):
@@ -54,22 +58,26 @@ class TrackList(generics.ListCreateAPIView):
     #     return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
+        queryset = core_models.Track.objects.filter(
+            is_active=True).order_by('-timestamp')
         try:
             site = self.request.META['HTTP_ORIGIN']
-            if site == 'https://club.enigmavssut.com' or site=='http://localhost:3000' or site=='http://localhost:8080':
+            if site == 'https://club.enigmavssut.com' or site == 'http://localhost:3000' or site == 'http://localhost:8080':
                 # update_subscription()
                 queryset = core_models.Track.objects.all().order_by('-timestamp')
-            
-            elif site == 'https://enigmavssut.com' or site=='http://localhost:3000':
-                queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
+
+            elif site == 'https://enigmavssut.com' or site == 'http://localhost:3000':
+                queryset = core_models.Track.objects.filter(
+                    is_active=True).order_by('-timestamp')
             return queryset
         except:
             return queryset
 
+
 class CreateArticle(GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = core_serializers.ArticleTrackSerializer
+
     def post(self, request, *args, **kwargs):
         context = {}
         serializer = core_serializers.ArticleTrackSerializer(data=request.data)
@@ -88,10 +96,12 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
+
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = core_models.Article.objects.all()
@@ -105,8 +115,9 @@ class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
             article_object = self.get_object()
             article_object.visits += 1
             article_object.save()
-            
+
         return super().get(request, *args, **kwargs)
+
 
 class TrackDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = core_models.Track.objects.all()
@@ -123,6 +134,7 @@ class ArticlePartialUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
+
 class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = core_models.Track.objects.all()
@@ -132,24 +144,27 @@ class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class TopicPartialUpdateView(GenericAPIView, UpdateModelMixin):
+
+class TagPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
+
 class ArticleStatusChange(APIView):
-    permission_classes=[IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         ids = request.data.get('ids', None)
         status = request.data.get('status', None)
-        if status=='Published' or status=='Rejected':
+        if status == 'Published' or status == 'Rejected':
             if not request.user.is_superuser:
                 return Response({"message": f'You dont have permission to publish an article'}, status=HTTP_400_BAD_REQUEST)
-        
+
         for id in ids:
             if id is None:
                 continue
@@ -158,22 +173,29 @@ class ArticleStatusChange(APIView):
             curr_article.save()
         return Response({"message": f'The article were marked as \"{status}\"!'}, status=HTTP_200_OK)
 
+
 class ArticleImageList(generics.ListCreateAPIView):
     queryset = core_models.ArticleImage.objects.all()
     serializer_class = core_serializers.ArticleImageSerializer
+
 
 class ArticleImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = core_models.ArticleImage.objects.all()
     serializer_class = core_serializers.ArticleImageSerializer
     lookup_field = 'name'
 
+
 class ArticlePublishingRequests(GenericAPIView):
     def get(self, request, *args, **kwargs):
         context = {}
-        context['all_draft_articles'] = core_serializers.ArticleSerializer(core_models.Article.objects.filter(status='Draft'), many=True).data
-        context['all_created_articles'] = core_serializers.ArticleSerializer(core_models.Article.objects.filter(status='Created'), many=True).data
-        context['all_rejected_articles'] = core_serializers.ArticleSerializer(core_models.Article.objects.filter(status='Rejected'), many=True).data
+        context['all_draft_articles'] = core_serializers.ArticleSerializer(
+            core_models.Article.objects.filter(status='Draft'), many=True).data
+        context['all_created_articles'] = core_serializers.ArticleSerializer(
+            core_models.Article.objects.filter(status='Created'), many=True).data
+        context['all_rejected_articles'] = core_serializers.ArticleSerializer(
+            core_models.Article.objects.filter(status='Rejected'), many=True).data
         return Response(context, status=HTTP_200_OK)
+
 
 def article_image_detail(reqeust, name):
     article_img = core_models.ArticleImage.objects.get(name=name)
@@ -182,7 +204,3 @@ def article_image_detail(reqeust, name):
     response['Content-Type'] = "image/*"
     response['Cache-Control'] = "max-age=0"
     return response
-
-
-
-

@@ -5,24 +5,25 @@ from members import models as member_models
 from django.contrib.auth.models import User
 
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         # fields = '__all__'
         exclude = ('password',)
         model = User
 
+
 class MemberSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+
     class Meta:
         fields = '__all__'
         model = member_models.Member
 
-class TopicSerializer(serializers.ModelSerializer):
+
+class TagSerializer(serializers.ModelSerializer):  # TASK-ALL articles of the Tags
     class Meta:
         fields = '__all__'
-        model = core_models.Topic
+        model = core_models.Tag
 
 
 class ArticleTrackSerializer(serializers.ModelSerializer):
@@ -32,20 +33,25 @@ class ArticleTrackSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = core_models.Article
 
+
 class ArticleListSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    topic = TopicSerializer(read_only=True)
+    Tag = TagSerializer(read_only=True)
+
     class Meta:
         # fields = '__all__'
         exclude = ('content', )
         model = core_models.Article
 
+
 class ArticleSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    topic = TopicSerializer(read_only=True)
+    Tag = TagSerializer(read_only=True)
+
     class Meta:
         fields = '__all__'
         model = core_models.Article
+
 
 class TrackSerializer(serializers.ModelSerializer):
     # articles = ArticleSerializer(many=True, read_only=True)
@@ -53,9 +59,8 @@ class TrackSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = core_models.Track
 
+
 class ArticleImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = core_models.ArticleImage
-
-
