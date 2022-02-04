@@ -42,7 +42,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    # Tag = TagSerializer(read_only=True)
+    Tag = TagSerializer(read_only=True)
     class Meta:
         fields = '__all__'
         model = core_models.Article

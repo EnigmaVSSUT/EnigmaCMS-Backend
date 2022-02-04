@@ -12,7 +12,7 @@ urlpatterns = [
     path('create-article/', views.CreateArticle.as_view(), name="create-article"),
     path('edit-article/<slug>/', views.ArticlePartialUpdateView.as_view(), name="edit-article"),
     path('edit-track/<slug>/', views.TrackPartialUpdateView.as_view(), name="edit-track"),
-    path('edit-tag/<slug>/', views.tagPartialUpdateView.as_view(), name="edit-tag"),
+    path('edit-tag/<slug>/', views.TagPartialUpdateView.as_view(), name="edit-tag"),
     path('article-status-update/', views.ArticleStatusChange.as_view(), name="article-status-update"),
     path('article-details-list/', views.ArticlePublishingRequests.as_view(), name="article-details-list"),
 
