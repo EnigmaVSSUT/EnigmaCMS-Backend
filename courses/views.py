@@ -41,9 +41,9 @@ class ArticleList(generics.ListCreateAPIView):
                 queryset = core_models.Article.objects.filter(status='Published')
         return queryset
 
-class tagList(generics.ListCreateAPIView):
-    queryset = core_models.tag.objects.all()
-    serializer_class = core_serializers.tagSerializer
+class TagList(generics.ListCreateAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
 
 class TrackList(generics.ListCreateAPIView):
     queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
@@ -88,9 +88,9 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class tagDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.tag.objects.all()
-    serializer_class = core_serializers.tagSerializer
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -132,10 +132,10 @@ class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class tagPartialUpdateView(GenericAPIView, UpdateModelMixin):
+class TagPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = core_models.tag.objects.all()
-    serializer_class = core_serializers.tagSerializer
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):

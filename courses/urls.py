@@ -6,13 +6,13 @@ from . import views
 urlpatterns = [
     path('article-list', views.ArticleList.as_view(), name="article-list"),
     path('track-list', views.TrackList.as_view(), name="track-list"),
-    path('tag-detail/<slug>/', views.tagDetail.as_view(), name="tag-detail"),
+    path('tag-detail/<slug>/', views.TagDetail.as_view(), name="tag-detail"),
     path('article-detail/<slug>/', views.ArticleDetail.as_view(), name="item_detail"),
     path('track-detail/<slug>/', views.TrackDetail.as_view(), name="track-detail"),
     path('create-article/', views.CreateArticle.as_view(), name="create-article"),
     path('edit-article/<slug>/', views.ArticlePartialUpdateView.as_view(), name="edit-article"),
     path('edit-track/<slug>/', views.TrackPartialUpdateView.as_view(), name="edit-track"),
-    path('edit-tag/<slug>/', views.tagPartialUpdateView.as_view(), name="edit-tag"),
+    path('edit-tag/<slug>/', views.TagPartialUpdateView.as_view(), name="edit-tag"),
     path('article-status-update/', views.ArticleStatusChange.as_view(), name="article-status-update"),
     path('article-details-list/', views.ArticlePublishingRequests.as_view(), name="article-details-list"),
 
