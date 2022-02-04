@@ -24,12 +24,12 @@ class ArticleList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = core_models.Article.objects.filter(status='Published')
-        Tag_slug = self.request.query_params.get('tag')
+        tag_slug = self.request.query_params.get('tag')
         track_slug = self.request.query_params.get('track')
-        if Tag_slug is not None:
+        if tag_slug is not None:
             try:
-                Tag = core_models.Tag.objects.get(slug=Tag_slug)
-                queryset = queryset.filter(Tag=Tag, status='Published')
+                tag = core_models.Tag.objects.get(slug=tag_slug)
+                queryset = queryset.filter(tag=tag, status='Published')
             except:
                 queryset = core_models.Article.objects.filter(
                     status='Published')
@@ -42,11 +42,9 @@ class ArticleList(generics.ListCreateAPIView):
                     status='Published')
         return queryset
 
-
 class TagList(generics.ListCreateAPIView):
     queryset = core_models.Tag.objects.all()
     serializer_class = core_serializers.TagSerializer
-
 
 class TrackList(generics.ListCreateAPIView):
     queryset = core_models.Track.objects.filter(
@@ -96,7 +94,6 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-
 class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = core_models.Tag.objects.all()
     serializer_class = core_serializers.TagSerializer
@@ -143,7 +140,6 @@ class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-
 
 class TagPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]

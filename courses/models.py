@@ -21,8 +21,7 @@ CATEGORY_CHOICES = [
     ('ML/AI', 'ML/AI'),
     ('UI/UX', 'UI/UX'),
     ('AR/VR', 'AR/VR'),
-    ('CP', 'CP')
-    # competitve programming to be added
+    ('CP','Competative Programming')
 ]
 
 HOME_PAGE_DISPLAY_TYPES = {
@@ -31,25 +30,10 @@ HOME_PAGE_DISPLAY_TYPES = {
 }
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50)
-
-    slug = AutoSlugField(populate_from='name', unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Article(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, blank=True)
-    contributors = models.ManyToManyField(
-        Member, related_name="other_contributors", blank=True)
-    # Tags to be multivalued
-    tag = ListCharField(
-        base_field=models.CharField(Tag, max_length=40),
-        size=20,
-        max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
-    )
+    contributors = models.ManyToManyField(Member, related_name="other_contributors", blank=True)
+    tag = models.ManyToManyField('Tag',related_name='tags', blank=True)
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
@@ -109,3 +93,12 @@ class Track(models.Model):
         if not self.timestamp:
             self.timestamp = timezone.now()
         super(Track, self).save(*args, **kwargs)
+        
+
+class Tag(models.Model):
+    name = models.CharField(max_length=5000)
+    slug = AutoSlugField(populate_from='name', unique=True)
+    articles = models.ManyToManyField(Article, related_name='tag_articles', blank=True)
+
+    def __str__(self):
+        return self.name

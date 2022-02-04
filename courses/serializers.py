@@ -19,8 +19,7 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = member_models.Member
 
-
-class TagSerializer(serializers.ModelSerializer):  # TASK-ALL articles of the Tags
+class TagSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = core_models.Tag
@@ -37,7 +36,6 @@ class ArticleTrackSerializer(serializers.ModelSerializer):
 class ArticleListSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
     Tag = TagSerializer(read_only=True)
-
     class Meta:
         # fields = '__all__'
         exclude = ('content', )
@@ -47,7 +45,6 @@ class ArticleListSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
     Tag = TagSerializer(read_only=True)
-
     class Meta:
         fields = '__all__'
         model = core_models.Article
