@@ -25,12 +25,12 @@ class ArticleList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = core_models.Article.objects.filter(status='Published')
-        topic_slug = self.request.query_params.get('topic')
+        tag_slug = self.request.query_params.get('tag')
         track_slug = self.request.query_params.get('track')
-        if topic_slug is not None:
+        if tag_slug is not None:
             try:
-                topic = core_models.Topic.objects.get(slug=topic_slug)
-                queryset = queryset.filter(topic=topic, status='Published')
+                tag = core_models.Tag.objects.get(slug=tag_slug)
+                queryset = queryset.filter(tag=tag, status='Published')
             except:
                 queryset = core_models.Article.objects.filter(status='Published')
         if track_slug is not None:
@@ -41,9 +41,9 @@ class ArticleList(generics.ListCreateAPIView):
                 queryset = core_models.Article.objects.filter(status='Published')
         return queryset
 
-class TopicList(generics.ListCreateAPIView):
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+class TagList(generics.ListCreateAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
 
 class TrackList(generics.ListCreateAPIView):
     queryset = core_models.Track.objects.filter(is_active=True).order_by('-timestamp')
@@ -88,9 +88,9 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -132,10 +132,10 @@ class TrackPartialUpdateView(GenericAPIView, UpdateModelMixin):
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class TopicPartialUpdateView(GenericAPIView, UpdateModelMixin):
+class TagPartialUpdateView(GenericAPIView, UpdateModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = core_models.Topic.objects.all()
-    serializer_class = core_serializers.TopicSerializer
+    queryset = core_models.Tag.objects.all()
+    serializer_class = core_serializers.TagSerializer
     lookup_field = 'slug'
 
     def put(self, request, *args, **kwargs):
