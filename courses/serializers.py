@@ -19,10 +19,10 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = member_models.Member
 
-class TopicSerializer(serializers.ModelSerializer):
+class tagSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
-        model = core_models.Topic
+        model = core_models.tag
 
 
 class ArticleTrackSerializer(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class ArticleTrackSerializer(serializers.ModelSerializer):
 
 class ArticleListSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    topic = TopicSerializer(read_only=True)
+    tag = tagSerializer(read_only=True)
     class Meta:
         # fields = '__all__'
         exclude = ('content', )
@@ -42,7 +42,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     member = MemberSerializer(read_only=True)
-    topic = TopicSerializer(read_only=True)
+    tag = tagSerializer(read_only=True)
     class Meta:
         fields = '__all__'
         model = core_models.Article

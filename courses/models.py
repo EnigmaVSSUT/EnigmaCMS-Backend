@@ -21,6 +21,7 @@ CATEGORY_CHOICES = [
     ('ML/AI', 'ML/AI'),
     ('UI/UX', 'UI/UX'),
     ('AR/VR', 'AR/VR'),
+    ('CP/CP','CP/CP')
 ]
 
 HOME_PAGE_DISPLAY_TYPES = {
@@ -28,19 +29,12 @@ HOME_PAGE_DISPLAY_TYPES = {
     ('Exclusive', 'Exclusive')
 }
 
-class Topic(models.Model):
-    name= models.CharField(max_length=50)
-    slug = AutoSlugField(populate_from='name', unique=True)
-
-    def __str__(self):
-        return self.name
-
 
 
 class Article(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, blank=True)
     contributors = models.ManyToManyField(Member, related_name="other_contributors", blank=True)
-    topic = models.ForeignKey(Topic,on_delete=models.CASCADE)
+    tag = models.ForeignKey(tag,on_delete=models.CASCADE)
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
@@ -92,3 +86,12 @@ class Track(models.Model):
         if not self.timestamp:
             self.timestamp = timezone.now()
         super(Track, self).save(*args, **kwargs)
+        
+
+class tag(models.Model):
+    name = models.CharField(max_length=5000)
+    slug = AutoSlugField(populate_from='name', unique=True)
+    articles = models.ManyToManyField(Article, related_name='tag_articles', blank=True)
+
+    def __str__(self):
+        return self.name
