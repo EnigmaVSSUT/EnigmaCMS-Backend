@@ -202,5 +202,5 @@ def article_image_detail(reqeust, name):
     return response
 
 
-class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-    category =
+# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     category =

@@ -20,10 +20,10 @@ class Migration(migrations.Migration):
                 ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name', unique=True)),
             ],
         ),
-        migrations.RemoveField(
-            model_name='article',
-            name='topic',
-        ),
+        # migrations.RemoveField(
+        #     model_name='article',
+        #     name='topic',
+        # ),
         migrations.AlterField(
             model_name='article',
             name='category',
@@ -39,9 +39,9 @@ class Migration(migrations.Migration):
             name='status',
             field=models.CharField(choices=[('Published', 'Published'), ('Created', 'Created'), ('Draft', 'Draft'), ('Rejected', 'Rejected')], default='Draft', max_length=20),
         ),
-        migrations.DeleteModel(
-            name='Topic',
-        ),
+        # migrations.DeleteModel(
+        #     name='Topic',
+        # ),
         migrations.AddField(
             model_name='tag',
             name='articles',

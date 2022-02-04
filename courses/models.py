@@ -42,7 +42,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='ArticlePics',
                               default='article_default.jpg')
     banner_image = models.ImageField(
-        upload_to='ArticleBannerPics', default='article_banner_default.jpg')
+        upload_to='ArticleBannerPics', default='article_banner_default.jpg', null=True)
     status = models.CharField(
         max_length=20, choices=ARTICLE_STATUS, default='Draft')
     home_page_display = models.CharField(
@@ -99,6 +99,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=5000)
     slug = AutoSlugField(populate_from='name', unique=True)
     articles = models.ManyToManyField(Article, related_name='tag_articles', blank=True)
+    is_active = models.BooleanField(blank=True, null=True)
 
     def __str__(self):
         return self.name
