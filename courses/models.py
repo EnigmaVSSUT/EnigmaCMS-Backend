@@ -21,7 +21,7 @@ CATEGORY_CHOICES = [
     ('ML/AI', 'ML/AI'),
     ('UI/UX', 'UI/UX'),
     ('AR/VR', 'AR/VR'),
-    ('CP/CP','CP/CP')
+    ('CP','Competative Programming')
 ]
 
 HOME_PAGE_DISPLAY_TYPES = {
@@ -34,7 +34,7 @@ HOME_PAGE_DISPLAY_TYPES = {
 class Article(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, blank=True)
     contributors = models.ManyToManyField(Member, related_name="other_contributors", blank=True)
-    tag = models.ForeignKey(tag,on_delete=models.CASCADE)
+    tag = models.ManyToManyField('Tag',related_name='tags', blank=True)
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
@@ -88,7 +88,7 @@ class Track(models.Model):
         super(Track, self).save(*args, **kwargs)
         
 
-class tag(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=5000)
     slug = AutoSlugField(populate_from='name', unique=True)
     articles = models.ManyToManyField(Article, related_name='tag_articles', blank=True)
