@@ -40,7 +40,7 @@ class ArticleList(generics.ListCreateAPIView):
             except:
                 queryset = core_models.Article.objects.filter(
                     status='Published')
-        return queryset
+        return queryset.order_by('timestamp')
 
 class TagList(generics.ListCreateAPIView):
     queryset = core_models.Tag.objects.all()
