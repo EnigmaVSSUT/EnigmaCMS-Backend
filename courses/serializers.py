@@ -49,6 +49,10 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = core_models.Article
 
+class CreateArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        exclude = ('member',)
+        model = core_models.Article
 
 class TrackSerializer(serializers.ModelSerializer):
     # articles = ArticleSerializer(many=True, read_only=True)
@@ -61,3 +65,4 @@ class ArticleImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = core_models.ArticleImage
+

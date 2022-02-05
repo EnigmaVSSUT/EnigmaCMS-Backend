@@ -74,17 +74,21 @@ class TrackList(generics.ListCreateAPIView):
 
 class CreateArticle(GenericAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = core_serializers.ArticleTrackSerializer
+    serializer_class = core_serializers.CreateArticleSerializer
 
     def post(self, request, *args, **kwargs):
         context = {}
-        serializer = core_serializers.ArticleTrackSerializer(data=request.data)
+        data=request.data
+        tags = data['tag']
+        tags = [int(i) for i in tags[1:-1].split(',')]
+        data['tag'] = tags
+        serializer = core_serializers.CreateArticleSerializer(data=data)
         if serializer.is_valid():
             try:
                 curr_author = core_models.Member.objects.get(user=request.user)
             except:
                 return Response({"message": "You are not an author. You cannot create article"}, status=HTTP_400_BAD_REQUEST)
-            this_article = serializer.save(writer=curr_author)
+            this_article = serializer.save(member=curr_author)
             context['new_article'] = serializer.data
 
             curr_track = this_article.track
