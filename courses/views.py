@@ -81,7 +81,7 @@ class CreateArticle(GenericAPIView):
         data=request.data
         if 'tags' in data:
             tags = data['tags']
-            tags = [int(i) for i in tags[1:-1].split(',')]
+            tags = [int(i) for i in tags.split(',')]
             print('tags:===', tags)
         else:
             tags=[]
