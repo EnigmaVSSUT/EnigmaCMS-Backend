@@ -79,9 +79,13 @@ class CreateArticle(GenericAPIView):
     def post(self, request, *args, **kwargs):
         context = {}
         data=request.data
-        tags = data['tag']
-        tags = [int(i) for i in tags[1:-1].split(',')]
-        data['tag'] = tags
+        if 'tags' in data:
+            tags = data['tags']
+            tags = [int(i) for i in tags[1:-1].split(',')]
+            print('tags:===', tags)
+        else:
+            tags=[]
+        data.pop('tags')
         serializer = core_serializers.CreateArticleSerializer(data=data)
         if serializer.is_valid():
             try:
@@ -89,9 +93,13 @@ class CreateArticle(GenericAPIView):
             except:
                 return Response({"message": "You are not an author. You cannot create article"}, status=HTTP_400_BAD_REQUEST)
             this_article = serializer.save(member=curr_author)
-            context['new_article'] = serializer.data
+            
 
             curr_track = this_article.track
+            for t in tags:
+                new_tag = core_models.Tag.objects.get(id=t)
+                this_article.tags.add(new_tag)
+            context['new_article'] = serializer.data
             context['message'] = f'Article added to track {curr_track.name}'
 
             return Response(context, status=HTTP_200_OK)
@@ -110,12 +118,15 @@ class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
 
     def get(self, request, *args, **kwargs):
-        site = request.META['HTTP_ORIGIN']
-        print(site)
-        if site != "https://club.enigmavssut.com":
-            article_object = self.get_object()
-            article_object.visits += 1
-            article_object.save()
+        try:
+            site = request.META['HTTP_ORIGIN']
+            print(site)
+            if site != "https://club.enigmavssut.com":
+                article_object = self.get_object()
+                article_object.visits += 1
+                article_object.save()
+        except:
+            pass
 
         return super().get(request, *args, **kwargs)
 
