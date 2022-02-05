@@ -45,7 +45,8 @@ class LoginUserSerializer(serializers.Serializer):
         user = None
         if email and password:
             if User.objects.filter(email=email).exists():
-                user = self.authenticate(email=email, password=password)
+                username = User.objects.filter(email=email).first()
+                user = self.authenticate(username=username, password=password)
             else:
                 msg = {'detail': 'Email address is not registered.',
                        'register': False}
