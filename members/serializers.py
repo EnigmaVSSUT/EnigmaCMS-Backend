@@ -32,6 +32,25 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         model = member_models.Member
 
 
+class MemberUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = (
+            'description', 
+            'github', 
+            'linkedin', 
+            'facebook', 
+            'instagram', 
+            'twitter', 
+            'codechef', 
+            'geeksforgeeks', 
+            'hackerearth', 
+            'profile_pic', 
+            'skills', 
+            'domain',
+        )
+        model = member_models.Member
+        
+
 class LoginUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(style={'input_type': 'password'})

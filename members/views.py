@@ -80,6 +80,16 @@ class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
 
 
+class MemberPartialUpdate(GenericAPIView, UpdateModelMixin):
+    queryset = member_models.Member.objects.all()
+    serializer_class = member_serializers.MemberUpdateSerializer
+    lookup_field = 'slug'
+    permission_classes = [IsAuthenticated]
+    
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+
 class AddMemberView(APIView):
     # parser_classes = (MultiPartParser, FormParser)
     def post(self, request, *args, **kwargs):
