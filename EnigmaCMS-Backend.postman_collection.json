@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e69db2fd-5677-4df1-9326-1f4665a6ec04",
+		"_postman_id": "422b9cff-f306-4159-90ef-5080bfb9cee3",
 		"name": "EnigmaCMS-Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -149,6 +149,108 @@
 							],
 							"path": [
 								"account_login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "github",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "linkedin",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "facebook",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "instagram",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "twitter",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "codechef",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "geeksforgeeks",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "hackerearth",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "profile_pic",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "skills",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "domain",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{enigma_api_members}}/member-update/<slug>/",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"member-update",
+								"<slug>",
+								""
 							]
 						}
 					},
