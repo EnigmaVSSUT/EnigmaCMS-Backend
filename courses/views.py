@@ -219,11 +219,14 @@ def article_image_detail(reqeust, name):
 
 class Articles_by_author(APIView):
     
-    def post(self,request):
+    def get(self,request,*arg, **kwargs):
         user=request.user
         status=request.query_params
         member=member_models.Member.objects.filter(user=user).first()
         queryset = core_models.Article.objects.filter(member=member)
+        status= self.request.GET.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
         serializer_class = core_serializers.ArticleByAuthorSerializer(queryset,many=True)
         return Response(serializer_class.data)
 

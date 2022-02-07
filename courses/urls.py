@@ -28,7 +28,7 @@ urlpatterns = [
     path('article-image-detail/<name>/',
          views.article_image_detail, name="article-image-detail"),
 
-    path('articles-by-author', views.Articles_by_author.as_view(),
+    path('articles-by-author/', views.Articles_by_author.as_view(),
          name='articles-by-author')
 ]
 
