@@ -106,10 +106,18 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class TagDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Tag.objects.all()
-    serializer_class = core_serializers.TagSerializer
-    lookup_field = 'slug'
+
+class TagDetail(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        slug=self.kwargs['slug']
+        tag=core_models.Tag.objects.filter(slug=slug).first()        
+        articles = core_models.Article.objects.filter(tags__in=[tag.id])
+        context={
+            "Data" : core_serializers.TagSerializer(tag).data,
+            "Articles":core_serializers.ArticleTagSerializer(articles,many=True).data
+        }
+        return Response(context)    
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
