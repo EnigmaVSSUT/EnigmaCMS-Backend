@@ -16,7 +16,7 @@ urlpatterns = [
     path('edit-tag/<slug>/', views.TagPartialUpdateView.as_view(), name="edit-tag"),
     path('article-status-update/', views.ArticleStatusChange.as_view(), name="article-status-update"),
     path('article-details-list/', views.ArticlePublishingRequests.as_view(), name="article-details-list"),
-
+    path('article-props/', views.ArticleProperties.as_view(), name="article-prop"),
 
     path('article-image-list/', views.ArticleImageList.as_view(),
          name="article-image-list"),

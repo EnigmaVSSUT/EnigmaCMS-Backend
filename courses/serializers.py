@@ -66,3 +66,14 @@ class ArticleImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = core_models.ArticleImage
 
+class ArticlePropertiesTagsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = ('name', 'slug')
+        model = core_models.Tag
+
+class ArticlePropertiesTracksSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = ('name', 'slug')
+        model = core_models.Track

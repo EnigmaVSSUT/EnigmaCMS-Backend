@@ -217,5 +217,20 @@ def article_image_detail(reqeust, name):
     return response
 
 
-# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     category =
+class ArticleProperties(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        tags = core_models.Tag.objects.all()
+        tracks = core_models.Track.objects.all()
+        categories = core_models.CATEGORY_CHOICES
+        cat = []
+        for category in categories:
+            cat.append({
+                'value': category[0],
+                'label': category[1]
+            })
+        context = {
+            'tag': core_serializers.ArticlePropertiesTagsSerializer(tags, many=True).data,
+            'track': core_serializers.ArticlePropertiesTracksSerializer(tracks, many=True).data,
+            'category': cat
+        }
+        return Response(context)
