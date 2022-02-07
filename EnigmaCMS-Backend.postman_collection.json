@@ -255,6 +255,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{enigma_api_members}}/user-profile/",
+							"host": [
+								"{{enigma_api_members}}"
+							],
+							"path": [
+								"user-profile",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -494,6 +518,24 @@
 							"path": [
 								"article-image-detail",
 								"<name>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Props",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/article-props/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"article-props",
 								""
 							]
 						}
