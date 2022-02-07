@@ -80,3 +80,18 @@ class LoginUserSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        fields = ('first_name', 'last_name', 'profile_pic', 'user')
+        model = member_models.Member
+      
+    def to_representation(self, instance):
+        user = super().to_representation(instance)
+        return {
+            'fullname': user['first_name'] + ' ' + user['last_name'],
+            'profile_pic': user['profile_pic'],
+            'username': user['user']['username']
+        }
