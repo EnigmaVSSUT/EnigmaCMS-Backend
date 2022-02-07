@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-
+from members import models as member_models
 
 class ArticleList(generics.ListCreateAPIView):
     queryset = core_models.Article.objects.filter(status='Published')
@@ -216,6 +216,16 @@ def article_image_detail(reqeust, name):
     response['Cache-Control'] = "max-age=0"
     return response
 
+
+class Articles_by_author(APIView):
+    
+    def post(self,request):
+        user=request.user
+        status=request.query_params
+        member=member_models.Member.objects.filter(user=user).first()
+        queryset = core_models.Article.objects.filter(member=member)
+        serializer_class = core_serializers.ArticleByAuthorSerializer(queryset,many=True)
+        return Response(serializer_class.data)
 
 # class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 #     category =
