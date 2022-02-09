@@ -225,6 +225,7 @@ def article_image_detail(reqeust, name):
     return response
 
 
+
 class Articles_by_author(APIView):
     
     def get(self,request,*arg, **kwargs):
@@ -237,6 +238,42 @@ class Articles_by_author(APIView):
             queryset = queryset.filter(status=status)
         serializer_class = core_serializers.ArticleByAuthorSerializer(queryset,many=True)
         return Response(serializer_class.data)
+      
+class ArticleProperties(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        tags = core_models.Tag.objects.all()
+        tracks = core_models.Track.objects.all()
+        categories = core_models.CATEGORY_CHOICES
+        cat = []
+        for category in categories:
+            cat.append({
+                'value': category[0],
+                'label': category[1]
+            })
+        context = {
+            'tag': core_serializers.ArticlePropertiesTagsSerializer(tags, many=True).data,
+            'track': core_serializers.ArticlePropertiesTracksSerializer(tracks, many=True).data,
+            'category': cat
+        }
+        return Response(context)
+class ArticleProperties(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        tags = core_models.Tag.objects.all()
+        tracks = core_models.Track.objects.all()
+        categories = core_models.CATEGORY_CHOICES
+        cat = []
+        for category in categories:
+            cat.append({
+                'value': category[0],
+                'label': category[1]
+            })
+        context = {
+            'tag': core_serializers.ArticlePropertiesTagsSerializer(tags, many=True).data,
+            'track': core_serializers.ArticlePropertiesTracksSerializer(tracks, many=True).data,
+            'category': cat
+        }
+        return Response(context)
 
 # class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 #     category =
+

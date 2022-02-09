@@ -148,3 +148,15 @@ class LogInView(LoginView):
             'username': user.username,
         }
         return Response(context)
+
+
+class UserProfile(generics.RetrieveAPIView):
+    def get(self, request, *args, **kwargs):
+        req_user = self.request.user.id
+        user = member_models.Member.objects.filter(user=req_user).first()
+        if(req_user is not None):
+            print('equal')
+            context = {
+                'user': member_serializers.UserProfileSerializer(user).data
+            }
+        return Response(context, status=HTTP_200_OK)
