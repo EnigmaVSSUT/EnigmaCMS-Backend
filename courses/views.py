@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-
+from members import models as member_models
 
 class ArticleList(generics.ListCreateAPIView):
     queryset = core_models.Article.objects.filter(status='Published')
@@ -106,10 +106,18 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class TagDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Tag.objects.all()
-    serializer_class = core_serializers.TagSerializer
-    lookup_field = 'slug'
+
+class TagDetail(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        slug=self.kwargs['slug']
+        tag=core_models.Tag.objects.filter(slug=slug).first()        
+        articles = core_models.Article.objects.filter(tags__in=[tag.id])
+        context={
+            "Data" : core_serializers.TagSerializer(tag).data,
+            "Articles":core_serializers.ArticleTagSerializer(articles,many=True).data
+        }
+        return Response(context)    
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -216,6 +224,19 @@ def article_image_detail(reqeust, name):
     response['Cache-Control'] = "max-age=0"
     return response
 
+
+class Articles_by_author(APIView):
+    
+    def get(self,request,*arg, **kwargs):
+        user=request.user
+        status=request.query_params
+        member=member_models.Member.objects.filter(user=user).first()
+        queryset = core_models.Article.objects.filter(member=member)
+        status= self.request.GET.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        serializer_class = core_serializers.ArticleByAuthorSerializer(queryset,many=True)
+        return Response(serializer_class.data)
 
 # class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 #     category =
