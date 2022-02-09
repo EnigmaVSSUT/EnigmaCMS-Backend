@@ -66,6 +66,16 @@ class ArticleImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = core_models.ArticleImage
 
+
+class ArticleByAuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        exclude = ('member','slug','content','description')
+        model=core_models.Article
+        
+class ArticleTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        exclude = ("content",'tags',)
+        model=core_models.Article
 class ArticlePropertiesTagsSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -77,3 +87,4 @@ class ArticlePropertiesTracksSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('name', 'slug')
         model = core_models.Track
+

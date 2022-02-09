@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-
+from members import models as member_models
 
 class ArticleList(generics.ListCreateAPIView):
     queryset = core_models.Article.objects.filter(status='Published')
@@ -106,10 +106,18 @@ class CreateArticle(GenericAPIView):
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class TagDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = core_models.Tag.objects.all()
-    serializer_class = core_serializers.TagSerializer
-    lookup_field = 'slug'
+
+class TagDetail(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        slug=self.kwargs['slug']
+        tag=core_models.Tag.objects.filter(slug=slug).first()        
+        articles = core_models.Article.objects.filter(tags__in=[tag.id])
+        context={
+            "Data" : core_serializers.TagSerializer(tag).data,
+            "Articles":core_serializers.ArticleTagSerializer(articles,many=True).data
+        }
+        return Response(context)    
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -217,6 +225,20 @@ def article_image_detail(reqeust, name):
     return response
 
 
+
+class Articles_by_author(APIView):
+    
+    def get(self,request,*arg, **kwargs):
+        user=request.user
+        status=request.query_params
+        member=member_models.Member.objects.filter(user=user).first()
+        queryset = core_models.Article.objects.filter(member=member)
+        status= self.request.GET.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        serializer_class = core_serializers.ArticleByAuthorSerializer(queryset,many=True)
+        return Response(serializer_class.data)
+      
 class ArticleProperties(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         tags = core_models.Tag.objects.all()
@@ -234,3 +256,24 @@ class ArticleProperties(generics.ListAPIView):
             'category': cat
         }
         return Response(context)
+class ArticleProperties(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        tags = core_models.Tag.objects.all()
+        tracks = core_models.Track.objects.all()
+        categories = core_models.CATEGORY_CHOICES
+        cat = []
+        for category in categories:
+            cat.append({
+                'value': category[0],
+                'label': category[1]
+            })
+        context = {
+            'tag': core_serializers.ArticlePropertiesTagsSerializer(tags, many=True).data,
+            'track': core_serializers.ArticlePropertiesTracksSerializer(tracks, many=True).data,
+            'category': cat
+        }
+        return Response(context)
+
+# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     category =
+
