@@ -16,6 +16,13 @@ def get_secret(setting, secrets=credentials):
     except KeyError:
         raise ImproperlyConfigured("Set the {} setting".format(setting))
 
+def get_db(type, setting, secrets=credentials):
+    """Get secret settings or fail with Improperly configured"""
+    try:
+        return secrets[type][setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -96,10 +103,10 @@ WSGI_APPLICATION = 'cms_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_secret('NAME'),
-        'HOST': get_secret('HOST'),
-        'USER': get_secret('USER'),
-        'PASSWORD': get_secret('PASSWORD')
+        'NAME': get_db('DEV_DATABASE', 'NAME'),
+        'HOST': get_db('DEV_DATABASE', 'HOST'),
+        'USER': get_db('DEV_DATABASE', 'USER'),
+        'PASSWORD': get_db('DEV_DATABASE', 'PASSWORD')
     }
 }
 

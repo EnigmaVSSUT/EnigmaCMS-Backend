@@ -42,11 +42,11 @@ class Member(models.Model):
         upload_to='member_profile_pic', default='default.jpg')
     slug = models.SlugField(unique=True, blank=True)
     gender = models.CharField(max_length=20, null=True)
-    skills = ListCharField(
-        base_field=models.CharField(max_length=40),
-        size=20,
-        max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
-    )
+    # skills = ListCharField(
+    #     base_field=models.CharField(max_length=40),
+    #     size=20,
+    #     max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
+    # )
     domain = models.CharField(max_length=100, null=True)
     registration_number = models.CharField(max_length=12, null=True)
 
