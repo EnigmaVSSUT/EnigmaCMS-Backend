@@ -88,3 +88,9 @@ class ArticlePropertiesTracksSerializer(serializers.ModelSerializer):
         fields = ('name', 'slug')
         model = core_models.Track
 
+
+class DomainSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields='__all__'
+        model = core_models.Domain
