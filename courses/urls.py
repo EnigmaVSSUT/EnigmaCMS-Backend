@@ -34,7 +34,10 @@ urlpatterns = [
          views.article_image_detail, name="article-image-detail"),
 
     path('articles-by-author/', views.Articles_by_author.as_view(),
-         name='articles-by-author')
+         name='articles-by-author'),
+    path('create-domain/', views.CreateDomain.as_view(),
+         name='create-domain'),
+     
 ]
 
 # Tag list: POST and GET

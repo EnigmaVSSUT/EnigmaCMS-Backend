@@ -274,6 +274,12 @@ class ArticleProperties(generics.ListAPIView):
         }
         return Response(context)
 
-# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     category =
+
+
+class CreateDomain(generics.CreateAPIView):
+    queryset = core_models.Domain.objects.all()
+    serializer_class = core_serializers.DomainSerializer
+
+
+
 
