@@ -103,10 +103,10 @@ WSGI_APPLICATION = 'cms_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_db('DEV_DATABASE', 'NAME'),
-        'HOST': get_db('DEV_DATABASE', 'HOST'),
-        'USER': get_db('DEV_DATABASE', 'USER'),
-        'PASSWORD': get_db('DEV_DATABASE', 'PASSWORD')
+        'NAME': get_db('QA_DATABASE', 'NAME'),
+        'HOST': get_db('QA_DATABASE', 'HOST'),
+        'USER': get_db('QA_DATABASE', 'USER'),
+        'PASSWORD': get_db('QA_DATABASE', 'PASSWORD')
     }
 }
 
