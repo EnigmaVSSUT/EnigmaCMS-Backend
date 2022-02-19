@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "422b9cff-f306-4159-90ef-5080bfb9cee3",
+		"_postman_id": "20af3b5c-9161-4455-94c4-0d1558396976",
 		"name": "EnigmaCMS-Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -320,17 +320,17 @@
 					"response": []
 				},
 				{
-					"name": "Topic Detail",
+					"name": "Tag Detail",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{enigma_api_courses}}/topic-detail/<slug>/",
+							"raw": "{{enigma_api_courses}}/tag-detail/<slug>/",
 							"host": [
 								"{{enigma_api_courses}}"
 							],
 							"path": [
-								"topic-detail",
+								"tag-detail",
 								"<slug>",
 								""
 							]
@@ -397,7 +397,7 @@
 				{
 					"name": "Edit Article",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"url": {
 							"raw": "{{enigma_api_courses}}/edit-article/<slug>/",
@@ -416,7 +416,7 @@
 				{
 					"name": "Edit Track",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"url": {
 							"raw": "{{enigma_api_courses}}/edit-track/<slug>/",
@@ -433,17 +433,17 @@
 					"response": []
 				},
 				{
-					"name": "Edit Topic",
+					"name": "Edit Tag",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{enigma_api_courses}}/edit-topic/<slug>/",
+							"raw": "{{enigma_api_courses}}/edit-tag/<slug>/",
 							"host": [
 								"{{enigma_api_courses}}"
 							],
 							"path": [
-								"edit-topic",
+								"edit-tag",
 								"<slug>",
 								""
 							]
@@ -536,6 +536,132 @@
 							],
 							"path": [
 								"article-props",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article List By Author",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token e982358fd6af5a9649fa27f7f6905b2b2536b960",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{enigma_api_courses}}/articles-by-author/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"articles-by-author",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Created",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/domain-detail/<int:id>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"domain-detail",
+								"<int:id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}domain-detail/<int:id>/",
+							"host": [
+								"{{enigma_api_courses}}domain-detail"
+							],
+							"path": [
+								"<int:id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/domain-detail/<int:id>/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"domain-detail",
+								"<int:id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/domain-list/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"domain-list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Creation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{enigma_api_courses}}/domain-list/",
+							"host": [
+								"{{enigma_api_courses}}"
+							],
+							"path": [
+								"domain-list",
 								""
 							]
 						}
