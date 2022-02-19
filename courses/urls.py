@@ -35,10 +35,9 @@ urlpatterns = [
 
     path('articles-by-author/', views.Articles_by_author.as_view(),
          name='articles-by-author'),
-    path('create-domain/', views.CreateDomain.as_view(),
-         name='create-domain'),
-     
+    path('domain-detail/<int:id>/', views.DomainDetailView.as_view(),
+         name='detail-domain'), 
+    path('domain-list/',views.CreateDomain.as_view(),name='domain-list'),
 ]
 
-# Tag list: POST and GET
-# category detail: All tracks of a category
+
