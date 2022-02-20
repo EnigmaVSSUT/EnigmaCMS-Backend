@@ -45,7 +45,7 @@ class Domain(models.Model):
     icon=models.CharField(choices=ICON_CHOICES, max_length=100,null=True)
     short_description= models.TextField(null=True, blank=True)
     detailed_description=models.TextField(null=True, blank=True)
-
+    created_by = models.ForeignKey(Member,on_delete =models.SET_NULL,null=True,related_name='Domain_creator')
     def __str__(self):
         return self.name
 
