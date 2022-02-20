@@ -18,6 +18,7 @@ GENDER_CHOICES = [
     ('Other', 'Other')
 ]
 
+
 class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=100, null=True)
@@ -47,7 +48,7 @@ class Member(models.Model):
     #     size=20,
     #     max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
     # )
-    domain = models.CharField(max_length=100, null=True)
+    domain_expertise = models.CharField(max_length=100, null=True)
     registration_number = models.CharField(max_length=12, null=True)
 
     branch = models.CharField(max_length=100, null=True)

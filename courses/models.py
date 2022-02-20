@@ -29,6 +29,28 @@ HOME_PAGE_DISPLAY_TYPES = {
     ('Exclusive', 'Exclusive')
 }
 
+ICON_CHOICES = [
+    ('A','a'),
+    ('B','b')
+]
+
+from events.models import Event
+from projects.models import Project
+class Domain(models.Model):
+    name=models.CharField(max_length=30)
+    domain_lead=models.ForeignKey(Member, on_delete=models.CASCADE, blank=True)
+    track=models.ManyToManyField('Track', blank=True)
+    projects=models.ManyToManyField(Project,blank=True)
+    events=models.ManyToManyField(Event,blank=True,)
+    icon=models.CharField(choices=ICON_CHOICES, max_length=100,null=True)
+    short_description= models.TextField(null=True, blank=True)
+    detailed_description=models.TextField(null=True, blank=True)
+    created_by = models.ForeignKey(Member,on_delete =models.SET_NULL,null=True,related_name='Domain_creator')
+    def __str__(self):
+        return self.name
+
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=5000)
     slug = AutoSlugField(populate_from='name', unique=True)
@@ -44,6 +66,7 @@ class Article(models.Model):
     name = models.CharField(max_length=3000)
     description = models.TextField(null=True, blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=100)
+    domain=models.ManyToManyField(Domain, blank=True)
     content = models.TextField(null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True)
     image = models.ImageField(upload_to='ArticlePics',

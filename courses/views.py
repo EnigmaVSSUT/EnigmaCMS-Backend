@@ -1,3 +1,5 @@
+from ast import Delete
+from os import stat
 from django.shortcuts import render
 from rest_framework import generics, serializers
 from rest_framework import response
@@ -274,6 +276,58 @@ class ArticleProperties(generics.ListAPIView):
         }
         return Response(context)
 
-# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     category =
 
+
+class CreateDomain(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = core_models.Domain.objects.all()
+    serializer_class = core_serializers.DomainSerializer
+    def post(self,request,*args,**kwargs):
+        if request.user.is_superuser == True:
+            context={}
+            data =request.data
+            new_domain = core_models.Domain()
+            new_domain.name =data['name']
+            new_domain.domain_lead =  member_models.Member.objects.get(id = data['domain_lead'])
+            new_domain.icon = data['icon']
+            new_domain.short_description = data['short_description']
+            new_domain.detailed_description = data['detailed_description']
+            new_domain.created_by = member_models.Member.objects.get(user = request.user)
+            new_domain.save()
+            context["New_domain"] = core_serializers.DomainSerializer(new_domain).data
+            context['message'] = "New domain created successfully"
+            return Response(context,status=HTTP_200_OK)
+        else:
+            context={}
+            context["error"] = "You are not authorized."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+
+
+
+class DomainDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = core_models.Domain.objects.all()
+    serializer_class = core_serializers.DomainSerializer
+    lookup_field = 'id'
+    def put(self, request, *args, **kwargs):
+        user=request.user
+        if user.is_staff==True or user.is_superuser==True:
+            return self.partial_update(request, *args, **kwargs)
+        else:
+            context={}
+            context["error"] = "You are not authorized to update."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+    def delete(self,request,id,*args, **kwargs):
+        user=request.user
+        if user.is_superuser==True:
+            curr_domain = core_models.Domain.objects.get(id = id)
+            context={}
+            context["message"]="Record deleted Successfully"
+            curr_domain.delete()
+            return Response(context,status=HTTP_200_OK)
+        
+        else:
+            context={}
+            context["error"] = "You are not authorized to delete."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+        

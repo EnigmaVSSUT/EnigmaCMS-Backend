@@ -88,3 +88,11 @@ class ArticlePropertiesTracksSerializer(serializers.ModelSerializer):
         fields = ('name', 'slug')
         model = core_models.Track
 
+
+class DomainSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        exclude=('projects','events','track')
+        model = core_models.Domain
+
+
