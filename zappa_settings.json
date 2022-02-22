@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "aws_region": "ap-south-1",
+        "django_settings": "cms_backend.settings",
+        "profile_name": "default",
+        "project_name": "enigmacms-backe",
+        "runtime": "python3.8",
+        "s3_bucket": "zappa-tofht6aja",
+        "slim_handler": true
+    }
+}
