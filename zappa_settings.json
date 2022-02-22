@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "aws_region": "ap-south-1",
+        "django_settings": "cms_backend.settings",
+        "profile_name": "default",
+        "project_name": "cms-api-qa",
+        "runtime": "python3.8",
+        "s3_bucket": "zappa-z3h9ae31q"
+    }
+}
