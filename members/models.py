@@ -48,7 +48,7 @@ class Member(models.Model):
     #     size=20,
     #     max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
     # )
-    domain_expertise = models.CharField(max_length=100, null=True)
+    domain_expertise=models.ManyToManyField("courses.Domain",related_name="DOMAIN_EXPERTISE",blank=True)
     registration_number = models.CharField(max_length=12, null=True)
 
     branch = models.CharField(max_length=100, null=True)

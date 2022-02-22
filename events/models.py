@@ -28,6 +28,7 @@ class Event(models.Model):
     end_date = models.DateField(null=True, blank=True)
     registration_start_date = models.DateField(null=True, blank=True)
     registration_end_date = models.DateField(null=True, blank=True)
+    domain_of_event=models.ManyToManyField('courses.Domain',related_name='Domain_of_Events',blank=True)
 
     def __str__(self):
         return self.name

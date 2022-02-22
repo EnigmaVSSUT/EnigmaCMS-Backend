@@ -30,8 +30,14 @@ HOME_PAGE_DISPLAY_TYPES = {
 }
 
 ICON_CHOICES = [
-    ('A','a'),
-    ('B','b')
+    ('W','Web Dev'),
+    ('A','App Dev'),
+    ('C','Cyber Security'),
+    ('G','Game'),
+    ('M','ML/AI'),
+    ('P','Competitive Programing'),
+    ('V','AR/VR'),
+    ('U','UI/UX')
 ]
 
 from events.models import Event
@@ -70,7 +76,7 @@ class Article(models.Model):
     content = models.TextField(null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True)
     image = models.ImageField(upload_to='ArticlePics',
-                              default='article_default.jpg', blank=True)
+                              default='article_default.jpg', blank=True) 
     banner_image = models.ImageField(
         upload_to='ArticleBannerPics', default='article_banner_default.jpg', null=True, blank=True)
     status = models.CharField(
@@ -115,6 +121,7 @@ class Track(models.Model):
                               default='track_default.jpg')
     timestamp = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True, blank=True)
+    domain_of_track=models.ManyToManyField(Domain,related_name='Domain_of_tracks',blank=True)
 
     def __str__(self):
         return self.name
