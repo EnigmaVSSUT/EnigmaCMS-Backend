@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-
+from members.models import Member
 # Create your models here.
 
 GENDER_CHOICES = [
@@ -29,7 +29,8 @@ class Event(models.Model):
     registration_start_date = models.DateField(null=True, blank=True)
     registration_end_date = models.DateField(null=True, blank=True)
     domain_of_event=models.ManyToManyField('courses.Domain',related_name='Domain_of_Events',blank=True)
-
+    event_lead=models.ForeignKey(Member,on_delete=models.SET_NULL, null=True,blank=True)
+    organisers=models.ManyToManyField(Member,related_name='Organising_Members',blank=True)
     def __str__(self):
         return self.name
 

@@ -8,6 +8,11 @@ from django.utils import timezone
 import datetime
 from django.contrib.auth.models import User
 # Create your models here.
+PROJECT_STATUS=[
+    ('Ongoing','Ongoing'),
+    ('Completed','Completed'),
+    ('Stopped','Stopped')
+]
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
@@ -20,13 +25,17 @@ class Project(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(null=True, blank=True)
     members = models.ManyToManyField(Member)
-    domain_of_project=models.ManyToManyField('courses.Domain',related_name='Domain_of_Projects',blank=True)
+    domain_of_project=models.ForeignKey('courses.Domain',on_delete=models.CASCADE,related_name='Domain_of_Projects',null=True,blank=True)
+    documents_of_project=models.ManyToManyField('Document',related_name='Project_related_docs',blank=True)
     tech_stack = ListCharField(
         base_field=models.CharField(max_length=40),
         size=20,
         null=True,
         max_length=(21 * 50)  # 6 * 10 character nominals, plus commas
     )
+    is_Team = models.BooleanField(default=True, blank=True)
+    contributor=models.ManyToManyField(Member,related_name='Project_contributors',blank=True)
+    project_status=models.CharField(choices=PROJECT_STATUS,max_length=20,null=True,default='Ongoing')
 
     def __str__(self):
         return self.name
