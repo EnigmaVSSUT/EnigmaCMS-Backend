@@ -9,9 +9,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = project_models.Project
 
 
-class CreateDocumentSerializer(serializers.ModelSerializer):
+class UpdateDocumentSerializer(serializers.ModelSerializer):
     class Meta:
-        exclude = ('time_stamp','visible_to',)
+        exclude = ('time_stamp',)
         model=project_models.Document
 
 class ListDocumentSerializer(serializers.ModelSerializer):
