@@ -42,9 +42,7 @@ class Document_list(generics.ListCreateAPIView):
         public_documents=project_models.Document.objects.filter(visibility='PUBLIC')
         serializer=project_serializers.ListDocumentSerializer
         context['Visible to Public']=serializer(public_documents,many=True).data         
-        if request.user.id==None:
-            return Response(context,status=HTTP_200_OK)    
-        else:
+        if request.user.id!=None:
             curr_member = member_models.Member.objects.get(user= request.user)
             if curr_member:
                 member_documents = project_models.Document.objects.filter(visibility= 'ONLY-MEMBERS')
