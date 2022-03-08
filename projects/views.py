@@ -24,15 +24,14 @@ import string
 from members import models as member_models
 from django.contrib.auth.models import AnonymousUser
 class ProjectLlist(generics.ListCreateAPIView):
-    permissin_class=[IsAuthenticatedOrReadOnly]
     queryset = project_models.Project.objects.all()
     serializer_class = project_serializers.ProjectSerializer
-
+    permissin_class=[IsAuthenticatedOrReadOnly]
 
 class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
-    permissin_class=[IsAuthenticatedOrReadOnly]
     queryset = project_models.Project.objects.all()
     serializer_class = project_serializers.ProjectSerializer
+    permissin_class=[IsAuthenticatedOrReadOnly]
     lookup_field = 'slug'
 
 
