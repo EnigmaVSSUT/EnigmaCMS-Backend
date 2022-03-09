@@ -2,6 +2,7 @@ from cgitb import lookup
 from django.shortcuts import render
 from . import models as project_models
 from . import serializers as project_serializers
+from . import pagination as project_pagination
 from django.shortcuts import render
 from rest_framework import generics, serializers
 
@@ -26,6 +27,7 @@ from django.contrib.auth.models import AnonymousUser
 class ProjectLlist(generics.ListCreateAPIView):
     queryset = project_models.Project.objects.all()
     serializer_class = project_serializers.ProjectSerializer
+    pagination_class = project_pagination.ProjectListPagination
     permissin_class=[IsAuthenticatedOrReadOnly]
 
 class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
