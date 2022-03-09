@@ -23,9 +23,9 @@ class ProjectSerializer(serializers.ModelSerializer):
                 result['tech_stack'].append(i[1:-1])
         return result
 
-class CreateDocumentSerializer(serializers.ModelSerializer):
+class UpdateDocumentSerializer(serializers.ModelSerializer):
     class Meta:
-        exclude = ('time_stamp','visible_to',)
+        exclude = ('time_stamp',)
         model=project_models.Document
 
 class ListDocumentSerializer(serializers.ModelSerializer):
