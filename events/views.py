@@ -3,7 +3,7 @@ from django.shortcuts import render
 from . import models as event_models
 from . import serializers as event_serializers
 from django.shortcuts import render
-from rest_framework import generics, serializers
+from rest_framework import generics, serializers,permissions
 
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
@@ -23,9 +23,15 @@ import random
 import string
 from django.utils import timezone
 
+#coustom permission_classes FOR READONLY permission for GET request
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in SAFE_METHODS
+
 class EventList(generics.ListCreateAPIView):
     queryset = event_models.Event.objects.all().order_by('-start_date')
     serializer_class = event_serializers.EventSerializer
+    permission_classes = [IsAdminUser | ReadOnly] 
 
     def get_queryset(self):
         type = self.request.query_params.get('type')
@@ -40,10 +46,33 @@ class EventList(generics.ListCreateAPIView):
             queryset = event_models.Event.objects.all().order_by('-start_date')
         return queryset
 
-class EventDetail(generics.RetrieveDestroyAPIView):
+class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = event_models.Event.objects.all()
     serializer_class = event_serializers.EventSerializer
     lookup_field = 'slug'
+
+    def put(self, request, *args, **kwargs):
+        user=request.user
+        if user.is_superuser==True:
+            return self.partial_update(request, *args, **kwargs)
+        else:
+            context={}
+            context["error"] = "You are not authorized to update."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+    def delete(self,request,*args, **kwargs):
+        user=request.user
+        slug=kwargs['slug']
+        if user.is_superuser==True or user.is_staff==True:
+            curr_domain = event_models.Event.objects.get(slug = slug)
+            context={}
+            context["message"]="Record deleted Successfully"
+            curr_domain.delete()
+            return Response(context,status=HTTP_200_OK)
+        
+        else:
+            context={}
+            context["error"] = "You are not authorized to delete."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
 
 class RegisterForEventView(generics.ListCreateAPIView):
     queryset = event_models.EventRegistration.objects.all()
