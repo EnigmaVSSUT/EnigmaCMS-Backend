@@ -100,7 +100,7 @@ class RegisterForEventView(generics.ListCreateAPIView):
         if(serialized.is_valid()):
             serialized.save()
             return Response({
-                'message': 'Request received'}, status=HTTP_200_OK)
+                'message': 'Registration Successful'}, status=HTTP_200_OK)
         else:
             return Response({
                 'message': serialized.errors
