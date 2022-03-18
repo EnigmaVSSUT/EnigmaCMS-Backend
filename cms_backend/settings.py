@@ -1,4 +1,5 @@
 import os
+import boto3
 from pathlib import Path
 import json
 from django.core.exceptions import ImproperlyConfigured
@@ -147,12 +148,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static',),)
-STATIC_URL = '/static/'
+# STATIC_ROOT = 'staticfiles'
+
 
 # Default primary key field type
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -203,9 +202,20 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = 'ap-south-1'
 AWS_S3_SIGNATURE_VERSION = get_secret('AWS_S3_SIGNATURE_VERSION')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_DEFAULT_ACL = 'public-read'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 429916160
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+AWS_LOCATION = 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

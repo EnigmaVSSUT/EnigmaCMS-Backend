@@ -82,3 +82,6 @@ Endpoints (Enigma)
 - [ ] Api.enigmavssut.com/courses/article-details-list   methods=GET
 - [ ] Api.enigmavssut.com/courses/article-image-list/    methods=GET
 - [ ] Api.enigmavssut.com/courses/article-image-detail/<name>/    methods=GET
+
+## Deployemnet
+- [ ] Dev: https://fll6evzgbf.execute-api.ap-south-1.amazonaws.com/dev

@@ -147,6 +147,8 @@ class LogInView(LoginView):
             "token": token,
             'username': user.username,
         }
+        context['is_staff'] = True if user.is_staff else False
+        context['is_superuser'] = True if user.is_superuser else False
         return Response(context)
 
 
