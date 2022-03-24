@@ -35,7 +35,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
 
 
-class Document_list(generics.ListCreateAPIView):
+class DocumentList(APIView):
     def get(self,request):
         context={}
         public_documents=project_models.Document.objects.filter(visibility='PUBLIC')
