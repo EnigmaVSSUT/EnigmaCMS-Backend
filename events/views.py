@@ -77,3 +77,32 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
 class RegisterForEventView(generics.ListCreateAPIView):
     queryset = event_models.EventRegistration.objects.all()
     serializer_class = event_serializers.EventRegistrationSerializer
+    
+    def post(self, request, *args, **kwargs):
+        user_email = request.data.get('email')
+        user_whatsapp_no = request.data.get('whatsapp_no')
+        print(user_whatsapp_no)
+        requested_event = event_models.Event.objects.filter(id=request.data.get('event')).first()
+        print('request_event', (requested_event))
+        registered_event_list = event_models.EventRegistration.objects.filter(email=user_email)
+        for i in registered_event_list:
+            if(i.event == requested_event):
+                return Response({
+                    'message': 'Already Registered'
+                }, status=HTTP_400_BAD_REQUEST)
+        registered_event_list = event_models.EventRegistration.objects.filter(whatsapp_no=user_whatsapp_no)
+        for i in registered_event_list:
+            if(i.event == requested_event):
+                return Response({
+                    'message': 'Already Registered'
+                }, status=HTTP_400_BAD_REQUEST)
+        serialized = event_serializers.EventRegistrationSerializer(data=request.data)
+        if(serialized.is_valid()):
+            serialized.save()
+            return Response({
+                'message': 'Registration Successful'}, status=HTTP_200_OK)
+        else:
+            return Response({
+                'message': serialized.errors
+            }, status=HTTP_400_BAD_REQUEST)
+        
