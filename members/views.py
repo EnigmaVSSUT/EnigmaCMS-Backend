@@ -143,9 +143,11 @@ class LogInView(LoginView):
             raise AuthenticationFailed("Invalid password Credentials")
 
         token = str(Token.objects.get_or_create(user=user)[0])
+        member=member_models.Member.objects.get(user=user)
         context = {
             "token": token,
             'username': user.username,
+            'slug':member.slug
         }
         context['is_staff'] = True if user.is_staff else False
         context['is_superuser'] = True if user.is_superuser else False
@@ -156,6 +158,7 @@ class UserProfile(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         req_user = self.request.user.id
         user = member_models.Member.objects.filter(user=req_user).first()
+        context={}
         if(req_user is not None):
             print('equal')
             context = {
