@@ -83,15 +83,15 @@ class LoginUserSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    # user = UserSerializer()
     class Meta:
-        fields = ('first_name', 'last_name', 'profile_pic', 'user')
+        exclude= ('user',"slug")
         model = member_models.Member
       
-    def to_representation(self, instance):
-        user = super().to_representation(instance)
-        return {
-            'fullname': user['first_name'] + ' ' + user['last_name'],
-            'profile_pic': user['profile_pic'],
-            'username': user['user']['username']
-        }
+    # def to_representation(self, instance):
+    #     user = super().to_representation(instance)
+    #     return {
+    #         'fullname': user['first_name'] + ' ' + user['last_name'],
+    #         'profile_pic': user['profile_pic'],
+    #         'username': user['user']['username']
+    #     }
