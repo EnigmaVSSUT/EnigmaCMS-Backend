@@ -164,4 +164,6 @@ class UserProfile(generics.RetrieveAPIView):
             context = {
                 'user': member_serializers.UserProfileSerializer(user).data
             }
+        else:
+            context['message']='Invalid Token'
         return Response(context, status=HTTP_200_OK)
