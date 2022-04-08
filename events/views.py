@@ -131,7 +131,7 @@ class CertificateListView(generics.ListCreateAPIView):
             return Response(context,status=HTTP_400_BAD_REQUEST)
     
 class CertificateDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[IsAuthenticatedorReadOnly]
+    permission_classes=[IsAuthenticatedOrReadOnly]
     queryset = event_models.Certificate.objects.all()
     serializer_class = event_serializers.CertificateSerializer
     lookup_field="certificate_number"
