@@ -13,3 +13,7 @@ class EventRegistrationSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = event_models.EventRegistration
 
+class CertificateSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = event_models.Certificate

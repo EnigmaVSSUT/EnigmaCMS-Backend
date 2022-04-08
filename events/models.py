@@ -1,3 +1,5 @@
+from enum import unique
+from tkinter import E
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -59,3 +61,11 @@ class EventRegistration(models.Model):
 
     def __str__(self):
         return self.firstname 
+
+class Certificate(models.Model):
+    name = models.CharField(max_length=100)
+    decription = models.TextField(null =True)
+    events = models.ForeignKey(Event,on_delete=models.CASCADE,null = True)
+    certificate_number = models.CharField(unique = True,max_length=100,null =True)
+    def __str__(self):
+        return str(self.name) + str(self.certificate_number)

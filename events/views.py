@@ -1,4 +1,5 @@
 from cgitb import lookup
+from tkinter import EventType
 from django.shortcuts import render
 from . import models as event_models
 from . import serializers as event_serializers
@@ -22,6 +23,7 @@ from rest_framework.permissions import (
 import random
 import string
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 #coustom permission_classes FOR READONLY permission for GET request
 class ReadOnly(BasePermission):
@@ -105,4 +107,56 @@ class RegisterForEventView(generics.ListCreateAPIView):
             return Response({
                 'message': serialized.errors
             }, status=HTTP_400_BAD_REQUEST)
-        
+
+class CertificateListView(generics.ListCreateAPIView):
+    queryset = event_models.Certificate.objects.all()
+    serializer_class = event_serializers.CertificateSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def post(self,request,*args,**kwargs):
+        context ={}
+        user = request.user
+        if user.is_superuser == True:
+            request.data['certificate_number']=slugify(str(random.choices(string.ascii_uppercase+string.digits,k=10))+'_'+str(random.randrange(1,9182010))+'@')
+            new_certificate = event_models.Certificate()
+            new_certificate.name = request.data.get("name")
+            new_certificate.decription = request.data.get("description")
+            new_certificate.events = event_models.Event(id=request.data.get("events"))
+            new_certificate.certificate_number = request.data.get("certificate_number")
+            new_certificate.save()
+            context["new_certificate"] = event_serializers.CertificateSerializer(new_certificate).data
+            context["message"] = "New certificate created successfully"
+            return Response(context,status=HTTP_200_OK)
+        else:
+            context["errors"]="You are not authorized to create certificate."
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+    
+class CertificateDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset = event_models.Certificate.objects.all()
+    serializer_class = event_serializers.CertificateSerializer
+    lookup_field="certificate_number"
+    def put(self,request,certificate_number,*args,**kwargs):
+        context = {}
+        if request.user.is_superuser ==True:
+            curr_certificate = event_models.Certificate.objects.get(certificate_number = certificate_number)
+            curr_certificate.name = request.data.get("name")
+            curr_certificate.description = request.data.get("description")
+            curr_certificate.events = event_models.Event.objects.get(id=request.data.get("events"))
+            curr_certificate.save()
+            context["Updated Certificate detail"] = event_serializers.CertificateSerializer(curr_certificate)
+            context["message"] = 'Certificate details updated successfully.'
+            return Response(context,status =HTTP_200_OK)
+        else:
+            context["error"] = "You are not authorized to update"
+            return Response(context,status=HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,certificate_number,*args,**kwargs):
+        context={}
+        if request.user.is_superuser == True:
+            curr_certificate = event_models.Certificate.objects.get(certificate_number= certificate_number)
+            curr_certificate.delete()
+            context["message"] ="Certificate details deleted successfully."
+            return Response(context,status=HTTP_200_OK)
+        else:
+            context["errors"] = 'You are not authorized to delete.'
+            return Response(context,status = HTTP_400_BAD_REQUEST)
