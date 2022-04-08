@@ -119,7 +119,7 @@ class CertificateListView(generics.ListCreateAPIView):
             request.data['certificate_number']=slugify(str(random.choices(string.ascii_uppercase+string.digits,k=10))+'_'+str(random.randrange(1,9182010))+'@')
             new_certificate = event_models.Certificate()
             new_certificate.name = request.data.get("name")
-            new_certificate.decription = request.data.get("description")
+            new_certificate.description = request.data.get("description")
             new_certificate.events = event_models.Event(id=request.data.get("events"))
             new_certificate.certificate_number = request.data.get("certificate_number")
             new_certificate.save()
@@ -131,7 +131,7 @@ class CertificateListView(generics.ListCreateAPIView):
             return Response(context,status=HTTP_400_BAD_REQUEST)
     
 class CertificateDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticatedorReadOnly]
     queryset = event_models.Certificate.objects.all()
     serializer_class = event_serializers.CertificateSerializer
     lookup_field="certificate_number"
@@ -143,7 +143,7 @@ class CertificateDetailView(generics.RetrieveUpdateDestroyAPIView):
             curr_certificate.description = request.data.get("description")
             curr_certificate.events = event_models.Event.objects.get(id=request.data.get("events"))
             curr_certificate.save()
-            context["Updated Certificate detail"] = event_serializers.CertificateSerializer(curr_certificate)
+            context["Updated Certificate detail"] = event_serializers.CertificateSerializer(curr_certificate).data
             context["message"] = 'Certificate details updated successfully.'
             return Response(context,status =HTTP_200_OK)
         else:

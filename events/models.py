@@ -64,7 +64,7 @@ class EventRegistration(models.Model):
 
 class Certificate(models.Model):
     name = models.CharField(max_length=100)
-    decription = models.TextField(null =True)
+    description = models.TextField(null =True)
     events = models.ForeignKey(Event,on_delete=models.CASCADE,null = True)
     certificate_number = models.CharField(unique = True,max_length=100,null =True)
     def __str__(self):
