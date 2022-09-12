@@ -15,7 +15,7 @@ datasource db {
 model User {
   id          Int      @unique @default(autoincrement())
   email       String   @unique
-  phoneNumber BigInt
+  phoneNumber BigInt?
   password    String
   profile     Profile?
   createdAt   DateTime @default(now())
