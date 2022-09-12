@@ -22,37 +22,36 @@ model User {
 }
 
 model Profile {
-  id           Int     @unique @default(autoincrement())
+  id           Int                 @unique @default(autoincrement())
   firstName    String
   lastName     String
   profileImage String?
   year         String
   branch       String
   gender       String
-  userId       Int     @unique
-  user         User    @relation(fields: [userId], references: [id])
-  events EventRegistration[]
+  userId       Int                 @unique
+  user         User                @relation(fields: [userId], references: [id])
+  events       EventRegistration[]
 }
 
 model Event {
-  id                    Int      @unique @default(autoincrement())
-  name                  String
-  slug                  String   @unique
-  description           String
-  documentURL           String
-  bannerImage           String?
-  startDate             DateTime
-  endDate               DateTime
-  registrationStartDate DateTime
-  registrationEndDate   DateTime
-
-  registrations EventRegistration[]
+  id                Int                 @unique @default(autoincrement())
+  name              String
+  slug              String              @unique
+  description       String
+  documentURL       String
+  bannerImage       String?
+  startDate         DateTime
+  endDate           DateTime
+  registrationStart DateTime
+  registrationEnd   DateTime
+  registrations     EventRegistration[]
 }
 
 model EventRegistration {
-	id Int      @unique @default(autoincrement())
-	eventId Int 
-	event Event @relation(fields: [eventId], references: [id])
-	userId Int
-	user Profile @relation(fields: [userId], references: [id])
+  id      Int     @unique @default(autoincrement())
+  eventId Int
+  event   Event   @relation(fields: [eventId], references: [id])
+  userId  Int
+  user    Profile @relation(fields: [userId], references: [id])
 }
