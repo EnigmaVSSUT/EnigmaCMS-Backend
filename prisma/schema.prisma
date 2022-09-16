@@ -19,6 +19,7 @@ model User {
   password    String
   profile     Profile?
   createdAt   DateTime @default(now())
+  token       Token?
 }
 
 model Profile {
@@ -30,7 +31,7 @@ model Profile {
   branch       String
   gender       String
   userId       Int                 @unique
-  user         User                @relation(fields: [userId], references: [id])
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   events       EventRegistration[]
 }
 
@@ -54,4 +55,11 @@ model EventRegistration {
   event   Event   @relation(fields: [eventId], references: [id])
   userId  Int
   user    Profile @relation(fields: [userId], references: [id])
+}
+
+model Token {
+  id     Int    @unique @default(autoincrement())
+  userId Int    @unique
+  token  String
+  user   User   @relation(fields: [userId], references: [id])
 }
