@@ -28,8 +28,31 @@ const addNewBlog = async (req: Request, res: Response, next: NextFunction) => {
 	}
 }
 
+const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
+	// console.log(req.params)
+	const { id } = req.params
+	try {
+		const blog = await prisma.blog.findFirstOrThrow({
+			where: {
+				id: parseInt(id)
+			}
+		})
+		res.status(200).json({
+			message: 'Blog fetched successfully',
+			blog: blog
+		})
+	}
+	catch(err) {
+		res.status(404).json({
+			error: 'Blog not found',
+			message: 'Blog does not exist'
+		})
+	}
+}
+
 const blogController = {
-	addNewBlog
+	addNewBlog,
+	getBlogById
 }
 
 export default blogController
