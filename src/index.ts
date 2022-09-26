@@ -1,10 +1,12 @@
 import express, { Request, Response, Express } from 'express'
 import * as dotenv from 'dotenv'
+import cors from 'cors'
 import { userRouter } from './routes/user.js'
 import { BlogRouter } from './routes/blog.js'
 
 dotenv.config()
 const app: Express = express()
+app.use(cors())
 
 const port = process.env.PORT
 
