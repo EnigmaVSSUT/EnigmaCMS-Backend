@@ -32,6 +32,7 @@ const signUp = async (req: Request, res: Response) => {
 		})
 	}
 	catch(err) {
+		console.log('error signup', err)
 		if(err instanceof Prisma.PrismaClientKnownRequestError) {
 			res.status(400).json({
 				error: 'Email already registered',
@@ -89,6 +90,7 @@ const logIn = async (req: Request, res: Response) => {
 		}
 	}
 	catch(err) {
+		console.log('error login', err)
 		res.status(400).json({
 			error: 'User not found',
 			message: 'User not found. Please create an account'
@@ -108,6 +110,7 @@ const logOut = async (req: Request, res: Response) => {
 		res.json({ message: 'Log out successful' })
 	}
 	catch(err) {
+		console.log('error logout', err)
 		res.status(500).json({
 			message: 'Invalid request'
 		})
@@ -141,6 +144,7 @@ const createOrUpdateProfile = async (req: Request, res: Response, next: NextFunc
 			})
 		}
 		catch(err) {
+			console.log('error profile', err)
 			res.status(500).json({
 				error: 'Error creating profile',
 				message: 'Error creating profile'
@@ -169,6 +173,7 @@ const createOrUpdateProfile = async (req: Request, res: Response, next: NextFunc
 			})
 		}
 		catch(err) {
+			console.log('error profile', err)
 			res.status(500).json({
 				error: 'Error creating profile',
 				message: 'Error creating profile'

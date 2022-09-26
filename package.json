@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "tsc-watch --onSuccess 'node ./build/index.js'",
-    "start": "node build/index.js",
+    "start": "yarn prisma generate && node build/index.js",
     "build": "tsc -p ."
   },
   "devDependencies": {
