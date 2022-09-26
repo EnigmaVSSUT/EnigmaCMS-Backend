@@ -33,6 +33,7 @@ model Profile {
   userId       Int                 @unique
   user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   events       EventRegistration[]
+  blogs        Blog[]
 }
 
 model Event {
@@ -62,4 +63,14 @@ model Token {
   userId Int    @unique
   token  String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model Blog {
+  id            Int     @unique @default(autoincrement())
+  title         String
+  description   String?
+  coverImageUrl String?
+  data          Json
+  profileId     Int
+	author        Profile @relation(fields: [profileId], references: [id], onDelete: SetNull)
 }
