@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "tsc-watch --onSuccess 'node ./build/index.js'",
-    "start": "yarn prisma generate && node build/index.js",
-    "build": "tsc -p ."
+    "start": "node build/index.js",
+    "build": "tsc -p . && yarn prisma generate"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
