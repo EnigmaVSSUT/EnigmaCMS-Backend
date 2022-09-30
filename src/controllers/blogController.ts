@@ -28,6 +28,16 @@ const addNewBlog = async (req: Request, res: Response, next: NextFunction) => {
 	}
 }
 
+const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
+	const { id } = req.params
+	try {
+
+	}
+	catch(err) {
+
+	}
+}
+
 const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 	// console.log(req.params)
 	const { id } = req.params
