@@ -30,12 +30,50 @@ const addNewBlog = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
 	const { id } = req.params
+	const data = req.body
+	// console.log(data)
 	try {
-
+		const updatedBlog = await prisma.blog.update({
+			where: {
+				id: parseInt(id)
+			},
+			data: {
+				...data
+			},
+		})
+		res.json({
+			message: 'Blog updated',
+			blog: updatedBlog
+		})
 	}
 	catch(err) {
-
+		res.status(404).json({
+			error: 'Blog not found',
+			message: 'The requested blog does not exist.'
+		})
 	}
+}
+
+const getAllBlogs = async (req: Request, res: Response, next: NextFunction) => {
+	const allBlogs = await prisma.blog.findMany({
+		include: {
+			author: {
+				select: {
+					firstName: true,
+					lastName: true,
+					branch: true,
+					gender: true,
+					profileImage: true,
+					graduationYear: true,
+				}
+			}
+		}
+	})
+
+	res.json({
+		message: 'Fetched all blogs',
+		blogs: allBlogs
+	})
 }
 
 const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
@@ -62,7 +100,9 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 
 const blogController = {
 	addNewBlog,
-	getBlogById
+	getBlogById,
+	updateBlog,
+	getAllBlogs
 }
 
 export default blogController
