@@ -24,7 +24,7 @@ model Profile {
   firstName      String
   lastName       String
   profileImage   String?
-  graduationYear String
+  graduationYear String              @default("2024")
   branch         String
   gender         String
   userId         Int                 @unique
