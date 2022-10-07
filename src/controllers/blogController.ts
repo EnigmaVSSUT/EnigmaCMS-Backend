@@ -98,11 +98,19 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 	}
 }
 
+// TODO: Complete the function to delete a blog by given id.
+const deleteBlog = async () => {}
+
+// TODO: Complete the function to schedule a blog using cron-jobs.
+const scheduleBlog = async () => {}
+
 const blogController = {
 	addNewBlog,
 	getBlogById,
 	updateBlog,
-	getAllBlogs
+	getAllBlogs,
+	scheduleBlog,
+	deleteBlog
 }
 
 export default blogController
