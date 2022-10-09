@@ -20,17 +20,17 @@ model User {
 }
 
 model Profile {
-  id           Int                 @unique @default(autoincrement())
-  firstName    String
-  lastName     String
-  profileImage String?
-  year         String
-  branch       String
-  gender       String
-  userId       Int                 @unique
-  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  events       EventRegistration[]
-  blogs        Blog[]
+  id             Int                 @unique @default(autoincrement())
+  firstName      String
+  lastName       String
+  profileImage   String?
+  graduationYear String              @default("2024")
+  branch         String
+  gender         String
+  userId         Int                 @unique
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events         EventRegistration[]
+  blogs          Blog[]
 }
 
 model Event {
@@ -70,12 +70,4 @@ model Blog {
   data          Json
   profileId     Int
   author        Profile @relation(fields: [profileId], references: [id], onDelete: SetNull)
-}
-
-model d6b27_05cb_50b4_9a4c_b54383b19039_20220926113653_vrepl {
-  id        Int    @unique(map: "User_id_key") @default(autoincrement())
-  firstName String
-  lastName  String
-
-  @@map("_371d6b27_05cb_50b4_9a4c_b54383b19039_20220926113653_vrepl")
 }

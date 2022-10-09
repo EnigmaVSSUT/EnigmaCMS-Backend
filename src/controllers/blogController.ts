@@ -28,6 +28,54 @@ const addNewBlog = async (req: Request, res: Response, next: NextFunction) => {
 	}
 }
 
+const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
+	const { id } = req.params
+	const data = req.body
+	// console.log(data)
+	try {
+		const updatedBlog = await prisma.blog.update({
+			where: {
+				id: parseInt(id)
+			},
+			data: {
+				...data
+			},
+		})
+		res.json({
+			message: 'Blog updated',
+			blog: updatedBlog
+		})
+	}
+	catch(err) {
+		res.status(404).json({
+			error: 'Blog not found',
+			message: 'The requested blog does not exist.'
+		})
+	}
+}
+
+const getAllBlogs = async (req: Request, res: Response, next: NextFunction) => {
+	const allBlogs = await prisma.blog.findMany({
+		include: {
+			author: {
+				select: {
+					firstName: true,
+					lastName: true,
+					branch: true,
+					gender: true,
+					profileImage: true,
+					graduationYear: true,
+				}
+			}
+		}
+	})
+
+	res.json({
+		message: 'Fetched all blogs',
+		blogs: allBlogs
+	})
+}
+
 const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 	// console.log(req.params)
 	const { id } = req.params
@@ -50,9 +98,19 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 	}
 }
 
+// TODO: Complete the function to delete a blog by given id.
+const deleteBlog = async () => {}
+
+// TODO: Complete the function to schedule a blog using cron-jobs.
+const scheduleBlog = async () => {}
+
 const blogController = {
 	addNewBlog,
-	getBlogById
+	getBlogById,
+	updateBlog,
+	getAllBlogs,
+	scheduleBlog,
+	deleteBlog
 }
 
 export default blogController
