@@ -63,11 +63,21 @@ model Token {
 }
 
 model Blog {
-  id            Int     @unique @default(autoincrement())
+  id            Int       @unique @default(autoincrement())
   title         String
   description   String?
   coverImageUrl String?
   data          Json
   profileId     Int
-  author        Profile @relation(fields: [profileId], references: [id], onDelete: SetNull)
+  author        Profile   @relation(fields: [profileId], references: [id], onDelete: SetNull)
+  categoryId    Int?
+  catogory      Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+}
+
+model Category {
+  id            Int     @unique @default(autoincrement())
+  title         String
+  description   String?
+  coverImageUrl String?
+  blogs         Blog[]
 }
