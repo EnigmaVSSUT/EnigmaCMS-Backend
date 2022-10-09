@@ -99,7 +99,26 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 // TODO: Complete the function to delete a blog by given id.
-const deleteBlog = async () => {}
+const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
+	const { id } = req.params
+	try {
+		const deletedBlog = await prisma.blog.delete({
+			where: {
+				id: parseInt(id)
+			}
+		})
+		res.json({
+			message: 'Blog deleted',
+			deletedBlog: deletedBlog
+		})
+	}
+	catch (err) {
+		res.status(400).json({
+			error: 'Blog already deleted or does not exist',
+			message: 'Blog already deleted or does not exist'
+		})
+	}
+}
 
 // TODO: Complete the function to schedule a blog using cron-jobs.
 const scheduleBlog = async () => {}
