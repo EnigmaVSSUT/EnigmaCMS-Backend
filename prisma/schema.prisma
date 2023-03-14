@@ -77,8 +77,10 @@ model Induction {
   id                         String @id @default(cuid())
   name                       String
   gender                     Gender @default(PreferNotToSay)
-  email                      String
-  whatsapp_no                BigInt
+  email                      String @unique
+  whatsapp_no                BigInt @unique
+  github_profile_url         String @unique
+  hackerearth_profile_url    String @unique
   registration_no            BigInt
   branch                     String
   graduation_year            Int
