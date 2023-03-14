@@ -15,6 +15,12 @@ enum Role {
   Member
 }
 
+enum Gender {
+  Male
+  Female
+  PreferNotToSay
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -36,4 +42,47 @@ model Profile {
   user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([username])
+}
+
+model Event {
+  id                      String              @id @default(cuid())
+  name                    String
+  slug                    String              @unique
+  poster                  String
+  subtitle                String?
+  description             String
+  is_single_day           Boolean
+  start_date              DateTime
+  end_date                DateTime?
+  registration_start_date DateTime
+  registration_end_date   DateTime
+  registrations           EventRegistration[]
+}
+
+model EventRegistration {
+  id              String  @id @default(cuid())
+  name            String
+  gender          Gender  @default(PreferNotToSay)
+  email           String
+  whatsapp_no     BigInt
+  registration_no BigInt
+  branch          String
+  graduation_year Int
+  expectations    String?
+  eventId         String
+  event           Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Induction {
+  id                         String @id @default(cuid())
+  name                       String
+  gender                     Gender @default(PreferNotToSay)
+  email                      String
+  whatsapp_no                BigInt
+  registration_no            BigInt
+  branch                     String
+  graduation_year            Int
+  why                        String
+  preferred_primary_domain   String
+  preferred_secondary_domain String
 }
