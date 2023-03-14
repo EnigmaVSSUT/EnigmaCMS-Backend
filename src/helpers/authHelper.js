@@ -4,7 +4,7 @@ export const authorizeUser = async (req, res, next) => {
 	try {
 		let token = req.headers.authorization
 		let payload = await verifyJWT(token)
-		console.log(payload)
+		// console.log(payload)
 		req.locals = {
 			userId: payload.userId,
 			profileId: payload.profileId,

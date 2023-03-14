@@ -64,8 +64,8 @@ model EventRegistration {
   name            String
   gender          Gender  @default(PreferNotToSay)
   email           String
-  whatsapp_no     BigInt
-  registration_no BigInt
+  whatsapp_no     String
+  registration_no String
   branch          String
   graduation_year Int
   expectations    String?
@@ -78,10 +78,10 @@ model Induction {
   name                       String
   gender                     Gender @default(PreferNotToSay)
   email                      String @unique
-  whatsapp_no                BigInt @unique
+  whatsapp_no                String @unique
   github_profile_url         String @unique
   hackerearth_profile_url    String @unique
-  registration_no            BigInt
+  registration_no            String
   branch                     String
   graduation_year            Int
   why                        String
