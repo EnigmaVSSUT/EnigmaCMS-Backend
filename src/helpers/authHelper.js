@@ -7,7 +7,8 @@ export const authorizeUser = async (req, res, next) => {
 		console.log(payload)
 		req.locals = {
 			userId: payload.userId,
-			profileId: payload.profileId
+			profileId: payload.profileId,
+			role: payload.role
 		}
 		next()
 	}

@@ -32,7 +32,8 @@ export const loginUserController = async (req, res, next) => {
 		}
 		let token = await generateJWT({
 			userId: user.id,
-			profileId: user.profile.id
+			profileId: user.profile.id,
+			role: user.role
 		})
 		return res.ok({
 			access_token: token
