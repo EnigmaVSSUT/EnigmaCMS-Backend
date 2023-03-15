@@ -9,7 +9,7 @@ export const createInductionController = async (req, res, next) => {
 			await inductionExistsByGitHub(data.github_profile_url) ||
 			await inductionExistsByHackerEarth(data.hackerearth_profile_url)
 		) {
-			return res.badRequest('You are already registered.')
+			return res.sendStatusResponse(409, 'You are already registered.')
 		}
 		if(!await createInduction(data)) {
 			return res.sendStatusResponse(500, 'Internal Server Error. Try again later.')
