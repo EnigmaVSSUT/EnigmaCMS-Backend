@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  Member
+}
+
+enum Gender {
+  Male
+  Female
+  PreferNotToSay
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(Member)
+  createdAt DateTime @default(now())
+  profile   Profile?
+}
+
+model Profile {
+  id               String  @id @default(cuid())
+  name             String
+  username         String  @unique
+  graduation_year  Int
+  avatar           String?
+  twitter_username String?
+  linkedin_url     String?
+  userId           String  @unique
+  user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([username])
+}
+
+model Event {
+  id                      String              @id @default(cuid())
+  name                    String
+  slug                    String              @unique
+  poster                  String
+  subtitle                String?
+  description             String
+  is_single_day           Boolean
+  start_date              DateTime
+  end_date                DateTime?
+  registration_start_date DateTime
+  registration_end_date   DateTime
+  registrations           EventRegistration[]
+}
+
+model EventRegistration {
+  id              String  @id @default(cuid())
+  name            String
+  gender          Gender  @default(PreferNotToSay)
+  email           String
+  whatsapp_no     String
+  registration_no String
+  branch          String
+  graduation_year Int
+  expectations    String?
+  eventId         String
+  event           Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Induction {
+  id                         String @id @default(cuid())
+  name                       String
+  gender                     Gender @default(PreferNotToSay)
+  email                      String @unique
+  whatsapp_no                String @unique
+  github_profile_url         String @unique
+  hackerearth_profile_url    String @unique
+  registration_no            String
+  branch                     String
+  graduation_year            Int
+  why                        String
+  preferred_primary_domain   String
+  preferred_secondary_domain String
+}
