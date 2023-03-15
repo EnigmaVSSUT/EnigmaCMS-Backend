@@ -9,7 +9,9 @@ import morgan from "morgan";
 const port = process.env.PORT
 
 const whitelist = [
-	'http://club.enigma.code:3000'
+	'http://club.enigma.code:3000',
+	'https://apply.enigmavssut.com',
+	'https://enigmavssut.com'
 ]
 
 const app = express()
