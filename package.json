@@ -24,6 +24,7 @@
   },
   "scripts": {
     "dev": "nodemon src/app",
+	"start": "node src/app",
     "generate": "prisma generate",
     "format": "prisma format",
     "migrate:dev": "prisma migrate dev",
