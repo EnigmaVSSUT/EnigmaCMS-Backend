@@ -4,7 +4,7 @@ import { compare, hash } from 'bcrypt'
 const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS)
 
 export const hashPassword = async (plainPassword) => {
-	let hashedPassword =  await bcrypt.hash(plainPassword, saltRounds)
+	let hashedPassword =  await hash(plainPassword, saltRounds)
 	return hashedPassword
 }
 
