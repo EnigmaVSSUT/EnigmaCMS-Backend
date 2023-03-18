@@ -57,3 +57,32 @@ export const getAllInductions = async () => {
 		return null
 	}
 }
+
+export const getInductionById = async (id) => {
+	try {
+		let induction = await prisma.induction.findFirstOrThrow({
+			where: {
+				id: id
+			}
+		})
+		return induction
+	}
+	catch(err) {
+		return null
+	}
+}
+
+export const editInductionById = async (id, data) => {
+	try {
+		const updatedInduction = await prisma.induction.update({
+			where: {
+				id: id
+			},
+			data: data
+		})
+		return updatedInduction
+	}
+	catch(err) {
+		return null
+	}
+}

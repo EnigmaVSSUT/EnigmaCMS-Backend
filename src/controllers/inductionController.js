@@ -1,4 +1,4 @@
-import { createInduction, getAllInductions, inductionExistsByEmail, inductionExistsByGitHub, inductionExistsByHackerEarth, inductionExistsByWhatsAppNumber } from "../repository/induction.js"
+import { createInduction, editInductionById, getAllInductions, getInductionById, inductionExistsByEmail, inductionExistsByGitHub, inductionExistsByHackerEarth, inductionExistsByWhatsAppNumber } from "../repository/induction.js"
 
 export const createInductionController = async (req, res, next) => {
 	try {
@@ -30,7 +30,34 @@ export const getAllInductionController = async (req, res, next) => {
 		})
 	}
 	catch(err) {
-		console.log(err)
+		// console.log(err)
 		next(err)
+	}
+}
+
+export const getInductionByIdController = async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const induction = await getInductionById(id)
+		if(!induction) {
+			return res.sendStatus(404)
+		}
+		return res.ok(induction)
+	}
+	catch(err) {
+		res.sendStatus(500)
+	}
+}
+
+export const editInductionByIdController = async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const data = req.body
+		const updatedInduction = await editInductionById(id, data)
+		if(!updatedInduction) return res.sendStatus(400)
+		res.ok(updatedInduction)
+	}
+	catch(err) {
+		res.sendStatus(500)
 	}
 }
