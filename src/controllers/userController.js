@@ -1,6 +1,6 @@
 import { comparePasswords, hashPassword } from "../lib/bcrypt/password.js"
 import { generateJWT } from "../lib/jose/jwt.js"
-import { createUser, getUserByEmail, userExists } from "../repository/user.js"
+import { createUser, getUserByEmail, getUserById, userExists } from "../repository/user.js"
 
 export const createUserController = async (req, res, next) => {
 	try {
@@ -38,6 +38,20 @@ export const loginUserController = async (req, res, next) => {
 		return res.ok({
 			access_token: token
 		})
+	}
+	catch(err) {
+		return res.sendStatus(500)
+	}
+}
+
+export const getUserInfoController = async (req, res, next) => {
+	const { userId } = req.locals
+	try {
+		let user = await getUserById(userId)
+		if(!user) {
+			return res.sendStatus(404)
+		}
+		return res.ok(user)
 	}
 	catch(err) {
 		return res.sendStatus(500)

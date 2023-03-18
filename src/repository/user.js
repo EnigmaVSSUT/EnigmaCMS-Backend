@@ -56,3 +56,31 @@ export const getUserByEmail = async (email) => {
 		throw err
 	}
 }
+
+export const getUserById = async (id) => {
+	try {
+		let user = await prisma.user.findFirstOrThrow({
+			where: {
+				id: id
+			},
+			select: {
+				email: true,
+				role: true,
+				profile: {
+					select: {
+						name: true,
+						username: true,
+						avatar: true,
+						graduation_year: true,
+						linkedin_url: true,
+						twitter_username: true
+					}
+				}
+			}
+		})
+		return user
+	}
+	catch(err) {
+		return null
+	}
+}
