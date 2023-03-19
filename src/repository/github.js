@@ -26,3 +26,17 @@ export const checkEnigmaMembership = async (username, accessToken) => {
 		return false
 	}
 }
+
+export const setPublicEnigmaMember = async (username, accessToken) => {
+	try {
+		console.log(accessToken)
+		await githubAPIMethods.setPublicMember(username, accessToken)
+		console.log('set public member')
+		return true
+	}
+	catch(err) {
+		console.log('failed to set public member')
+		console.log(err.response.data)
+		return false
+	}
+}

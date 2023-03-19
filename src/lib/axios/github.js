@@ -30,6 +30,11 @@ const githubAPIMethods = {
 			'Authorization': `Bearer ${accessToken}`
 		}
 	}),
+	setPublicMember: (username, accessToken) => githubAPI.put(`/orgs/EnigmaVSSUT/public_members/${username}`, null, {
+		headers: {
+			'Authorization': `Bearer ${accessToken}`
+		}
+	})
 	// checkEnigmaMembership: (username, accessToken) => githubAPI.get(`/orgs/EnigmaVSSUT/members/${username}`, {
 	// 	headers: {
 	// 		'Authorization': `Bearer ${accessToken}`
