@@ -1,6 +1,6 @@
 import { comparePasswords, hashPassword } from "../lib/bcrypt/password.js"
 import { generateJWT } from "../lib/jose/jwt.js"
-import { createUser, getUserByEmail, getUserById, userExists } from "../repository/user.js"
+import { createUser, getListOfMembers, getUserByEmail, getUserById, updateProfileById, userExists } from "../repository/user.js"
 
 export const createUserController = async (req, res, next) => {
 	try {
@@ -52,6 +52,30 @@ export const getUserInfoController = async (req, res, next) => {
 			return res.sendStatus(404)
 		}
 		return res.ok(user)
+	}
+	catch(err) {
+		return res.sendStatus(500)
+	}
+}
+
+export const getAllMembersController = async (req, res, next) => {
+	try {
+		const allMembers = await getListOfMembers()
+		if(!allMembers) return res.sendStatus(404)
+		return res.ok(allMembers)
+	}
+	catch(err) {
+		return res.sendStatus(500)
+	}
+}
+
+export const updatedProfileController = async (req, res, next) => {
+	try {
+		let data = req.body
+		let { userId } = req.locals
+		const updatedProfile = await updateProfileById(userId, data)
+		if(!updatedProfile) return res.sendStatusResponse(500, 'Could not update profile.')
+		return res.ok(updatedProfile)
 	}
 	catch(err) {
 		return res.sendStatus(500)

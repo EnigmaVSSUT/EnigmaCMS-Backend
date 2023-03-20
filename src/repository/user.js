@@ -84,3 +84,53 @@ export const getUserById = async (id) => {
 		return null
 	}
 }
+
+export const getListOfMembers = async () => {
+	try {
+		const allMembers = await prisma.user.findMany({
+			select: {
+				id: true,
+				email: true,
+				role: true,
+				profile: {
+					select: {
+						avatar: true,
+						graduation_year: true,
+						linkedin_url: true,
+						name: true,
+						twitter_username: true,
+						username: true
+					}
+				}
+			}
+		})
+		return allMembers
+	}
+	catch(err) {
+		return null
+	}
+}
+
+export const updateProfileById = async (userId, data) => {
+	try {
+		let updatedProfile = await prisma.profile.update({
+			where: {
+				userId: userId
+			},
+			data: data,
+			select: {
+				name: true,
+				username: true,
+				avatar: true,
+				graduation_year: true,
+				linkedin_url: true,
+				twitter_username: true
+			}
+		})
+		return updatedProfile
+	}
+	catch(err) {
+		console.error(err)
+		return null
+	}
+}
