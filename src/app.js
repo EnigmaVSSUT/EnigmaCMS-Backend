@@ -42,3 +42,5 @@ app.use(errorHelper)
 app.listen(port, () => {
 	console.log('server: Server listening on port', port)
 })
+
+export default app
