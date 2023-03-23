@@ -134,3 +134,26 @@ export const updateProfileById = async (userId, data) => {
 		return null
 	}
 }
+
+export const getMemberProfileByUsername = async (username) => {
+	try {
+		const memberProfile = await prisma.profile.findFirstOrThrow({
+			where: {
+				username: username
+			},
+			select: {
+				id: true,
+				name: true,
+				username: true,
+				avatar: true,
+				graduation_year: true,
+				linkedin_url: true,
+				twitter_username: true
+			}
+		})
+		return memberProfile
+	}
+	catch(err) {
+		return null
+	}
+}
