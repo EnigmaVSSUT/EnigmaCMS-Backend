@@ -2,7 +2,7 @@ import { comparePasswords, hashPassword } from "../lib/bcrypt/password.js"
 import { uploadProfilePic } from "../lib/firebase/utils.js"
 import { generateJWT } from "../lib/jose/jwt.js"
 import { createUser, getListOfMembers, getMemberProfileByUsername, getUserByEmail, getUserById, updateProfileById, userExists } from "../repository/user.js"
-import { readFileSync } from 'fs'
+import { readFileSync, unlink } from 'fs'
 
 export const createUserController = async (req, res, next) => {
 	try {
@@ -104,6 +104,12 @@ export const uploadProfilePicController = async (req, res, next) => {
 		const { profile: { username }, userId } = req.locals
 		const fb = readFileSync(file.path)
 		const image = await uploadProfilePic(username, file.filename, fb)
+		unlink(file.path, (err) => {
+			if(err) {
+				console.error('failed to delete')
+			}
+			console.log('file deleted')
+		})
 		if(image.uploaded) {
 			const updatedProfile = await updateProfileById(userId, {
 				avatar: image.key
@@ -115,6 +121,7 @@ export const uploadProfilePicController = async (req, res, next) => {
 		}
 	}
 	catch(err) {
+		console.log(err)
 		res.sendStatusResponse(500, err.message)
 	}
 }
