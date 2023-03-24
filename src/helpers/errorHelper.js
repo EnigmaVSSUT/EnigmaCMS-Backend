@@ -1,3 +1,6 @@
 export const errorHelper = (err, req, res, next) => {
-	res.status(500).json('Server Error. Try again after sometime')
+	console.log(err)
+	// if(err.code === 'LIMIT_FILE_SIZE')
+
+	res.status(500).json(err.message || 'Server Error. Try again after sometime')
 }

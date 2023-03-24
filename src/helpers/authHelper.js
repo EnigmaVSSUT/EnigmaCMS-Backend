@@ -1,4 +1,5 @@
 import { verifyJWT } from "../lib/jose/jwt.js"
+import { getProfileById } from "../repository/user.js"
 
 export const authorizeUser = async (req, res, next) => {
 	try {
@@ -36,17 +37,18 @@ export const authorizeAdmin = async (req, res, next) => {
 	}
 }
 
-export const authorizeSelf = async (req, res, next) => {
+export const authorizeAndGetProfile = async (req, res, next) => {
 	try {
 		let { userId } = req.params
 		let token = req.headers.authorization
 		let payload = await verifyJWT(token)
 		// console.log(payload)
-		if(payload.userId != userId) throw Error('Only the user can access this resource.')
+		const profile = await getProfileById(payload.profileId)
 		req.locals = {
 			userId: payload.userId,
 			profileId: payload.profileId,
-			role: payload.role
+			role: payload.role,
+			profile: profile
 		}
 		next()
 	}

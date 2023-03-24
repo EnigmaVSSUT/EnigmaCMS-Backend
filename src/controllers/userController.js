@@ -1,6 +1,8 @@
 import { comparePasswords, hashPassword } from "../lib/bcrypt/password.js"
+import { uploadProfilePic } from "../lib/firebase/utils.js"
 import { generateJWT } from "../lib/jose/jwt.js"
 import { createUser, getListOfMembers, getMemberProfileByUsername, getUserByEmail, getUserById, updateProfileById, userExists } from "../repository/user.js"
+import { readFileSync } from 'fs'
 
 export const createUserController = async (req, res, next) => {
 	try {
@@ -93,5 +95,26 @@ export const getMemberProfileController = async (req, res, next) => {
 	}
 	catch(err) {
 		return res.sendStatus(500)
+	}
+}
+
+export const uploadProfilePicController = async (req, res, next) => {
+	try {
+		const { file } = req
+		const { profile: { username }, userId } = req.locals
+		const fb = readFileSync(file.path)
+		const image = await uploadProfilePic(username, file.filename, fb)
+		if(image.uploaded) {
+			const updatedProfile = await updateProfileById(userId, {
+				avatar: image.key
+			})
+			if(!updatedProfile) throw Error('Cannot update profile')
+			return res.ok(updatedProfile)
+		} else {
+			return res.sendStatus(400)
+		}
+	}
+	catch(err) {
+		res.sendStatusResponse(500, err.message)
 	}
 }
