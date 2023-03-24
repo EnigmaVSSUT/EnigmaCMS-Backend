@@ -5,6 +5,9 @@ export const getImageUrlController = async (req, res, next) => {
 		const { folder, file } = req.params
 		const key = `${folder}/${file}`
 		const url = await getImageUrl(key)
+		if(!url) {
+			return res.notFound()
+		}
 		res.redirect(url)
 	}
 	catch(err) {
