@@ -17,7 +17,7 @@ const whitelist = [
 ]
 
 const app = express()
-app.use(morgan('combined'))
+app.use(morgan('dev'))
 app.use(cors({
 	origin: function(origin, callback) {
 		// console.log('origin', origin)
