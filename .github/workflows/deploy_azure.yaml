@@ -31,7 +31,7 @@ jobs:
           npm install
 
       - name: run migrations on CockroachDB
-        run : yarn migrate:deploy
+        run : npm run migrate:deploy
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -40,6 +40,7 @@ jobs:
           path: |
             .
             !node_modules
+            !yarn.lock
 
   deploy:
     runs-on: ubuntu-latest
