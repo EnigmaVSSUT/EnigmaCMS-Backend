@@ -29,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: |
           yarn --production
-          yarn generate
 
       - name: run migrations on CockroachDB
         run : yarn migrate:deploy
