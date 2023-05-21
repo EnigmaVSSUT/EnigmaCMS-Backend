@@ -17,6 +17,8 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
+      - run: cat /etc/os-release
+
       - uses: actions/checkout@v2
 
       - name: Set up Node.js version
