@@ -9,7 +9,10 @@ import CDNRouter from "./cdn.js";
 const appRoutes = Router()
 
 appRoutes.get('/status', (req, res, next) => {
-	res.sendStatus(200)
+	const result = {
+		message: 'running'
+	}
+	res.json(result)
 })
 appRoutes.use('/github', githubRouter)
 appRoutes.use('/user', userRouter)
