@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn --production
+          npm install
 
       - name: run migrations on CockroachDB
         run : yarn migrate:deploy
