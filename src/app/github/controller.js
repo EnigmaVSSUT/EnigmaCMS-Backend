@@ -7,7 +7,7 @@ export const authCallbackController = async (req, res, next) => {
 		if(!await setPublicEnigmaMember(data.user, data.accessToken)) {
 			return res.badRequest('Membership not public')
 		}
-		res.ok(data)
+		res.json(data)
 	}
 	catch(err) {
 		res.sendStatus(400)
