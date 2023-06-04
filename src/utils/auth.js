@@ -16,8 +16,11 @@ export const authorize = (roles) => async (req, res, next) => {
 			res.status(403).json('No token provided')
 		}
 		else {
-			const { payload } = await verifyJWT(token)
-			console.log(payload.role, roles, roles.includes(payload.role))
+			const tokenParts = token.split(' ')
+			if(tokenParts[0] !== 'Bearer') {
+				throw Error('Invalid token')
+			}
+			const { payload } = await verifyJWT(tokenParts[1])
 			if(!roles.includes(payload.role)) {
 				return res.status(403).json('You don\'t have the permissions to perform this action')
 			}

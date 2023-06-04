@@ -7,7 +7,7 @@ import { Role } from "@prisma/client";
 
 const router = Router()
 
-router.post('/create', createUserController)
+router.post('/signup', createUserController)
 router.post('/login', loginUserController)
 router.get('/', authorize([Role.Admin, Role.Member]), getUserInfoController)
 router.get('/all', getAllMembersController)

@@ -34,12 +34,12 @@ const githubAPIMethods = {
 		headers: {
 			'Authorization': `Bearer ${accessToken}`
 		}
+	}),
+	checkEnigmaMembership: (username, accessToken) => githubAPI.get(`/orgs/EnigmaVSSUT/members/${username}`, {
+		headers: {
+			'Authorization': `Bearer ${accessToken}`
+		}
 	})
-	// checkEnigmaMembership: (username, accessToken) => githubAPI.get(`/orgs/EnigmaVSSUT/members/${username}`, {
-	// 	headers: {
-	// 		'Authorization': `Bearer ${accessToken}`
-	// 	}
-	// })
 }
 
 export { githubMethods, githubAPIMethods }

@@ -1,6 +1,7 @@
 import { comparePasswords, hashPassword } from "../../utils/bcrypt.js"
 import { uploadProfilePic } from "../../utils/firebase.js"
 import { generateJWT } from "../../utils/jwt.js"
+import { checkEnigmaMembership } from "../github/repository.js"
 import { createUser, getListOfMembers, getMemberProfileByUsername, getUserByEmail, getUserById, updateProfileById, userExists } from "./repository.js"
 import { readFileSync, unlink } from 'fs'
 
@@ -11,6 +12,10 @@ import { readFileSync, unlink } from 'fs'
 export const createUserController = async (req, res, next) => {
 	try {
 		let data = req.body
+		const ghu_token = req.headers.authorization
+		if(!await checkEnigmaMembership(data.profile.username, ghu_token)) {
+			return res.status(403).json('User not a member of Enigma VSSUT')
+		}
 		if(await userExists(data.email)) {
 			return res.status(400).json('User with email already exists.')
 		}
@@ -22,7 +27,8 @@ export const createUserController = async (req, res, next) => {
 		return res.sendStatus(201)
 	}
 	catch(err) {
-		res.sendStatus(500)
+		console.log(err)
+		res.status(400).json('User with username already exists')
 	}
 }
 
@@ -34,11 +40,11 @@ export const loginUserController = async (req, res, next) => {
 	try {
 		let { email, password } = req.body
 		if(!await userExists(email)) {
-			return res.badRequest('No user found.')
+			return res.status(404).json('No user found.')
 		}
 		let user = await getUserByEmail(email)
 		if(!await comparePasswords(password, user.password)) {
-			return res.badRequest('Invalid password')
+			return res.status(400).json('Invalid password')
 		}
 		let token = await generateJWT({
 			userId: user.id,
