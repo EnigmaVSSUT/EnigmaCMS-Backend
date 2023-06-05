@@ -32,5 +32,6 @@
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "studio": "prisma studio"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
