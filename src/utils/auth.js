@@ -24,12 +24,9 @@ export const authorize = (roles) => async (req, res, next) => {
 			if(!roles.includes(payload.role)) {
 				return res.status(403).json('You don\'t have the permissions to perform this action')
 			}
-			const user = await getUserById(payload.userId)
+			// const user = await getUserById(payload.userId)
 			req.locals = {
-				requestingUser: user,
-				userId: payload.userId,
-				profileId: payload.profileId,
-				role: payload.role
+				payload
 			}
 			next()
 		}

@@ -6,10 +6,17 @@ const alg = 'HS256'
 
 
 /**
+ * @typedef {Object} UserProfile
+ * @property {string} profileId
+ * @property {string} name
+ * @property {string} username
+ * @property {string} avatar
+ * 
+ * 
  * @typedef {Object} Payload
  * @property {string} userId
- * @property {string} profileId
  * @property {string} role
+ * @property {UserProfile} profile
  */
 
 

@@ -48,8 +48,13 @@ export const loginUserController = async (req, res, next) => {
 		}
 		let token = await generateJWT({
 			userId: user.id,
-			profileId: user.profile.id,
-			role: user.role
+			role: user.role,
+			profile: {
+				avatar: user.profile.avatar,
+				name: user.profile.name,
+				username: user.profile.username,
+				profileId: user.profile.id
+			}
 		})
 		return res.json({
 			access_token: token
@@ -66,13 +71,9 @@ export const loginUserController = async (req, res, next) => {
  * @type {import("express").RequestHandler}
  */
 export const getUserInfoController = async (req, res, next) => {
-	const { userId } = req.locals
+	const { payload } = req.locals
 	try {
-		let user = await getUserById(userId)
-		if(!user) {
-			return res.sendStatus(404)
-		}
-		return res.json(user)
+		return res.json(payload)
 	}
 	catch(err) {
 		return res.sendStatus(500)
