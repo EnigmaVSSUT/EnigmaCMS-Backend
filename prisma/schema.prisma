@@ -21,6 +21,11 @@ enum Gender {
   PreferNotToSay
 }
 
+enum BlogStatus {
+  Draft
+  Published
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -40,6 +45,7 @@ model Profile {
   linkedin_url     String?
   userId           String  @unique
   user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blogs            Blog[]
 
   @@index([username])
 }
@@ -87,4 +93,26 @@ model Induction {
   why                        String
   preferred_primary_domain   String
   preferred_secondary_domain String
+}
+
+model Blog {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  bannerImage String?
+  content     Json
+  keywords    String[]
+  status      BlogStatus @default(Draft)
+  authorId    String?
+  author      Profile?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  categoryId  String?
+  category    Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Category {
+  id    String @id @default(cuid())
+  name  String
+  blogs Blog[]
 }
