@@ -11,7 +11,10 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'EnigmaVSSUT/EnigmaCMS-Backend'
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{secrets.DEV_DATABASE_URL}}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,17 +24,20 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          yarn
+
+      - name: run migrations
+        run: yarn migrate:deploy 
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: |
+            .
+            !node_modules
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,5 +58,5 @@ jobs:
         with:
           app-name: 'enigmavssut-dev'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F974C0007B4E4CD6A0F877E75611683B }}
+          publish-profile: ${{ secrets.DEV_AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
