@@ -5,3 +5,10 @@ node_modules
 yarn-error.log
 
 prisma/client
+
+#for terraform files
+*.tfplan
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.*
