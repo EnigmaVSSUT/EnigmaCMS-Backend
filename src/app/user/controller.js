@@ -90,7 +90,10 @@ export const getAllMembersController = async (req, res, next) => {
 		return res.json(allMembers)
 	}
 	catch(err) {
-		return res.sendStatus(500)
+		return res.send({
+			message:err,
+			status:500
+		})
 	}
 }
 
