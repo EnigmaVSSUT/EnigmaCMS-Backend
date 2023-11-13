@@ -88,3 +88,14 @@ model Induction {
   preferred_primary_domain   String
   preferred_secondary_domain String
 }
+
+
+model Blog{
+  id String @id @default(cuid())
+  title String
+  tags String[]
+  content String
+  date String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
