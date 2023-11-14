@@ -6,9 +6,9 @@ CREATE TYPE "Gender" AS ENUM ('Male', 'Female', 'PreferNotToSay');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" STRING NOT NULL,
-    "email" STRING NOT NULL,
-    "password" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'Member',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -17,27 +17,27 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Profile" (
-    "id" STRING NOT NULL,
-    "name" STRING NOT NULL,
-    "username" STRING NOT NULL,
-    "graduation_year" INT4 NOT NULL,
-    "avatar" STRING,
-    "twitter_username" STRING,
-    "linkedin_url" STRING,
-    "userId" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "graduation_year" INTEGER NOT NULL,
+    "avatar" TEXT,
+    "twitter_username" TEXT,
+    "linkedin_url" TEXT,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Event" (
-    "id" STRING NOT NULL,
-    "name" STRING NOT NULL,
-    "slug" STRING NOT NULL,
-    "poster" STRING NOT NULL,
-    "subtitle" STRING,
-    "description" STRING NOT NULL,
-    "is_single_day" BOOL NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "poster" TEXT NOT NULL,
+    "subtitle" TEXT,
+    "description" TEXT NOT NULL,
+    "is_single_day" BOOLEAN NOT NULL,
     "start_date" TIMESTAMP(3) NOT NULL,
     "end_date" TIMESTAMP(3),
     "registration_start_date" TIMESTAMP(3) NOT NULL,
@@ -48,37 +48,50 @@ CREATE TABLE "Event" (
 
 -- CreateTable
 CREATE TABLE "EventRegistration" (
-    "id" STRING NOT NULL,
-    "name" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "gender" "Gender" NOT NULL DEFAULT 'PreferNotToSay',
-    "email" STRING NOT NULL,
-    "whatsapp_no" STRING NOT NULL,
-    "registration_no" STRING NOT NULL,
-    "branch" STRING NOT NULL,
-    "graduation_year" INT4 NOT NULL,
-    "expectations" STRING,
-    "eventId" STRING NOT NULL,
+    "email" TEXT NOT NULL,
+    "whatsapp_no" TEXT NOT NULL,
+    "registration_no" TEXT NOT NULL,
+    "branch" TEXT NOT NULL,
+    "graduation_year" INTEGER NOT NULL,
+    "expectations" TEXT,
+    "eventId" TEXT NOT NULL,
 
     CONSTRAINT "EventRegistration_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Induction" (
-    "id" STRING NOT NULL,
-    "name" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "gender" "Gender" NOT NULL DEFAULT 'PreferNotToSay',
-    "email" STRING NOT NULL,
-    "whatsapp_no" STRING NOT NULL,
-    "github_profile_url" STRING NOT NULL,
-    "hackerearth_profile_url" STRING NOT NULL,
-    "registration_no" STRING NOT NULL,
-    "branch" STRING NOT NULL,
-    "graduation_year" INT4 NOT NULL,
-    "why" STRING NOT NULL,
-    "preferred_primary_domain" STRING NOT NULL,
-    "preferred_secondary_domain" STRING NOT NULL,
+    "email" TEXT NOT NULL,
+    "whatsapp_no" TEXT NOT NULL,
+    "github_profile_url" TEXT NOT NULL,
+    "hackerearth_profile_url" TEXT NOT NULL,
+    "registration_no" TEXT NOT NULL,
+    "branch" TEXT NOT NULL,
+    "graduation_year" INTEGER NOT NULL,
+    "why" TEXT NOT NULL,
+    "preferred_primary_domain" TEXT NOT NULL,
+    "preferred_secondary_domain" TEXT NOT NULL,
 
     CONSTRAINT "Induction_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Blog" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "tags" TEXT[],
+    "content" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Blog_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
