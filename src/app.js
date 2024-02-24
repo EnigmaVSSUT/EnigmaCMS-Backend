@@ -7,7 +7,7 @@ import appRouter from "./app/index.js";
 const port = process.env.PORT
 
 const whitelist = [
-	'http://club.enigma.code:3000',
+	'http://127.0.0.1:4000',
 	'https://apply.enigmavssut.com',
 	'https://enigmavssut.com',
 	'https://club.enigmavssut.com',
