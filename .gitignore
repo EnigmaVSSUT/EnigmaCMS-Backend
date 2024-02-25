@@ -12,4 +12,4 @@ prisma/client
 *.tfstate.*
 .terraform/
 .terraform.lock.*
-courageous-chinchilla credentials.txt
+brave-chipmunk credentials.txt

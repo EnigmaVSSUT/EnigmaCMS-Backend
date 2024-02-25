@@ -12,7 +12,7 @@ router.post('/login', loginUserController)
 router.get('/', authorize([Role.Admin, Role.Member]), getUserInfoController)
 router.get('/all', getAllMembersController)
 router.get('/:username', getMemberProfileController)
-router.put('/profile', authorize([Role.Admin, Role.Member]), updatedProfileController)
+router.put('/profileUpdate', authorize([Role.Admin, Role.Member]), updatedProfileController)
 router.put('/profile-pic', authorize([Role.Admin, Role.Member]), upload.single('avatar'), uploadProfilePicController)
 
 export default router
