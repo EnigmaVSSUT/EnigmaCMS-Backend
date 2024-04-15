@@ -14,7 +14,9 @@ const whitelist = [
 	'https://club.enigmavssut.com',
 	'https://enigma-dev-web.web.app',
 	'https://enigma-web-preview.web.app',
-	'https://dev.enigmavssut.com'
+	'https://dev.enigmavssut.com',
+	'http://club.enigma.code',
+	'http://localhost'
 ]
 
 const app = express()
