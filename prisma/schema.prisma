@@ -39,6 +39,8 @@ model Profile {
   twitter_username String?
   linkedin_url     String?
   domain           String?
+  bio              String?
+  skills           String?
   userId           String  @unique
   user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
