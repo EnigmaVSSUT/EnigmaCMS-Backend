@@ -41,6 +41,7 @@ model Profile {
   domain           String?
   bio              String?
   skills           String?
+  portfolio_url    String?
   userId           String  @unique
   user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
