@@ -1,13 +1,9 @@
 import {saveToDatabase} from './repository.js'
 
 export const saveBlog = async (req, res) => {
-    const { title, content, tags,date } = req.body;
-    const blog = {
-        title,
-        tags,
-        content,
-        date
-    };
+
+    const content = req.body;
+    const blog =content;
     const result = await saveToDatabase(blog);
     if(result) {
         return res.send({

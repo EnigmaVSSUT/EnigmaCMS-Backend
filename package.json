@@ -9,7 +9,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@prisma/client": "^4.16.2",
+    "@prisma/client": "^5.14.0",
     "axios": "^1.3.4",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
