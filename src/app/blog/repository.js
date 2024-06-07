@@ -8,12 +8,14 @@ export const saveToDatabase = (blog) => {
 
 }
 
-// export const getAllBlogs = async () => {
-//     try {
-//         const blogs = await db.Blog.findAll();
-//         return blogs;
-//     } catch (error) {
-//         console.log(error);
-//         return [];
-//     }
-// }
+export const getAllBlogs = async () => {
+    try {
+        const blogs = await db.Blog.findMany();
+        return blogs;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};
+
+

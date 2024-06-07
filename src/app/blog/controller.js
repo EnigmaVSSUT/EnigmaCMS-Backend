@@ -1,9 +1,15 @@
 import {saveToDatabase} from './repository.js'
+import { getAllBlogs } from './repository.js';
 
 export const saveBlog = async (req, res) => {
 
-    const content = req.body;
-    const blog =content;
+    const { title, content, tags,date } = req.body;
+    const blog = {
+        title,
+        tags,
+        content,
+        date
+    };
     const result = await saveToDatabase(blog);
     if(result) {
         return res.send({
@@ -20,7 +26,27 @@ export const saveBlog = async (req, res) => {
     }
 }
 
-// const getBlogs = async (req, res) => {
-//     const blogs = await Blog.findAll();
-//     return res.json(blogs);
-// }
+
+export const getBlogs = async (req, res) => {
+    try {
+        const blogs = await getAllBlogs();
+        if (blogs.length > 0) {
+            return res.send({
+                status: 200,
+                data: blogs,
+                message: "Blogs retrieved successfully"
+            });
+        } else {
+            return res.send({
+                status: 404,
+                message: "No blogs found"
+            });
+        }
+    } catch (error) {
+        return res.send({
+            status: 500,
+            message: "An error occurred while retrieving blogs",
+            error: error.message
+        });
+    }
+};
