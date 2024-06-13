@@ -12,7 +12,10 @@ export const createUser = (data) => {
 					graduation_year: data.profile.graduation_year,
 					linkedin_url: data.profile.linkedin_url,
 					twitter_username: data.profile.twitter_username,
-					domain : data.profile.domain
+					domain : data.profile.domain,
+					bio: data.profile.bio,
+          			skills: data.profile.skills,
+          			portfolio_url: data.profile.portfolio_url,
 				}
 			}
 		}
@@ -55,7 +58,10 @@ export const getUserById = (userId) => {
 					graduation_year: true,
 					linkedin_url: true,
 					twitter_username: true,
-					domain :true
+					domain :true,
+					bio: true,
+          			skills: true,
+          			portfolio_url: true,
 				}
 			}
 		}
@@ -76,7 +82,10 @@ export const getListOfMembers = () => {
 					name: true,
 					twitter_username: true,
 					username: true,
-					domain :true
+					domain :true,
+					bio: true,
+					skills: true,
+					portfolio_url: true,
 				}
 			}
 		}
@@ -96,7 +105,10 @@ export const updateProfileById = async (userId, data) => {
 			graduation_year: true,
 			linkedin_url: true,
 			twitter_username: true,
-			domain: true
+			domain: true,
+			bio: true,
+      		skills: true,
+      		portfolio_url: true,
 		}
 	})
 }
@@ -122,7 +134,10 @@ export const getMemberProfileByUsername = async (username) => {
 			graduation_year: true,
 			linkedin_url: true,
 			twitter_username: true,
-			domain:true
+			domain:true,
+			bio: true,
+      		skills: true,
+      		portfolio_url: true,
 		}
 	})
 }
